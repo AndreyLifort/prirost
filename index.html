@@ -265,6 +265,16 @@ html.show-ph .ph{background:rgba(255,122,47,.2);box-shadow:0 0 0 4px rgba(255,12
 .sec-cta{margin-top:52px}
 .sec-cta .btn{grid-column:3/-1;justify-self:start}
 .lit .w{opacity:calc(.36 + .64*clamp(0, var(--p) * (var(--n) + 3) - var(--i), 1));transition:opacity .25s linear}
+/* появление при прокрутке: класс rv ставит скрипт; без скрипта и при «уменьшении движения» всё видно сразу */
+.rv .vs-r,.rv .vs-r .new,.rv .stats li,.rv .path .chip{opacity:0;transform:translateY(16px)}
+.rv .path .chip{transform:translateY(10px) scale(.94)}
+.rv .vs-r.in,.rv .vs-r.in .new,.rv .stats.in li,.rv .path li.in .chip{opacity:1;transform:none;transition:opacity .55s ease,transform .7s cubic-bezier(.2,.7,.1,1);transition-delay:calc(var(--rd,0)*70ms)}
+.rv .vs-r.in .new{transition-delay:calc(var(--rd,0)*70ms + .16s)}
+.vs-r:nth-child(3){--rd:1}
+.vs-r:nth-child(4){--rd:2}
+.stats li:nth-child(2){--rd:2}
+.stats li:nth-child(3){--rd:4}
+.s-n{font-variant-numeric:tabular-nums}
 @media (max-width:899px){
   .head{display:block}
   .label{padding-top:0;margin-bottom:14px}
@@ -313,7 +323,7 @@ html.show-ph .ph{background:rgba(255,122,47,.2);box-shadow:0 0 0 4px rgba(255,12
 .seg{position:absolute;left:-1px;right:0;top:0;height:150px;pointer-events:none;clip-path:inset(-24px calc((1 - clamp(0, var(--p) * 6.6 - var(--i), 1)) * 100%) -24px 0)}
 .seg i{position:absolute;left:0;right:0;bottom:var(--y0);height:calc(var(--y1) - var(--y0));background:linear-gradient(to bottom right,transparent calc(50% - 1.2px),var(--c) calc(50% - 1.2px),var(--c) calc(50% + 1.2px),transparent calc(50% + 1.2px))}
 .seg.flat i{bottom:calc(var(--y0) - 1px);height:2px;background:var(--c)}
-.st{--c:rgba(238,235,242,.46)}
+.st{--c:rgba(238,235,242,.46);--q:1}
 .st.hot{--c:var(--ember)}
 .st.goal .seg.flat i{background:repeating-linear-gradient(to right,var(--amber) 0 9px,transparent 9px 15px)}
 .st-n{position:absolute;z-index:1;left:-16px;top:calc(150px - var(--y0) - 16px);display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--night);border:1px solid var(--nl2);font:500 13px/1 var(--f-m);color:var(--silver)}
@@ -334,10 +344,15 @@ html.show-ph .ph{background:rgba(255,122,47,.2);box-shadow:0 0 0 4px rgba(255,12
 @media (max-width:1099px){
   .flow{display:block;max-width:660px;margin-top:36px}
   .st{padding:3px 0 28px 52px;border-left:0}
-  .st::after{content:"";position:absolute;left:15.5px;top:36px;bottom:4px;width:1px;background:var(--nl2)}
-  .st.hot::after{background:var(--ember)}
+  /* линия шагов: бледная дорожка, по ней при прокрутке идёт заливка (--q — доля пройденного шага) */
+  .st::after{content:"";position:absolute;left:15.5px;top:36px;bottom:4px;width:1px;background:var(--nl)}
+  .st.hot::after{background:rgba(255,122,47,.24)}
+  .st::before{content:"";position:absolute;left:15px;top:36px;bottom:4px;width:2px;border-radius:1px;background:var(--c);transform:scaleY(var(--q));transform-origin:50% 0}
+  .st>p,.st>h3,.st>ul{opacity:calc(.4 + .6*clamp(0, var(--q)*5, 1));transition:opacity .25s linear}
+  .st.hot .st-n{box-shadow:0 0 calc(16px*clamp(0, var(--q)*5, 1)) rgba(255,122,47,.5)}
+  .st.goal .st-n{box-shadow:0 0 calc(24px*clamp(0, var(--q)*3, 1)) rgba(255,180,94,.75)}
   .st:last-child{padding-bottom:0}
-  .st:last-child::after{display:none}
+  .st:last-child::after,.st:last-child::before{display:none}
   .seg{display:none}
   .st-n{left:0;top:0}
   .st h3{margin-top:10px}
@@ -957,15 +972,15 @@ details[open] .pm::after{transform:rotate(0)}
     </header>
     <div class="vs" role="table" aria-label="Обычный договор и наш">
       <div class="vs-h g12" role="row"><p role="columnheader">Обычно</p><p role="columnheader">С&nbsp;нами</p></div>
-      <div class="vs-r g12" role="row">
+      <div class="vs-r g12" role="row" data-rv>
         <p class="old" role="cell"><span class="vs-l" aria-hidden="true">Обычно</span>Платите с&nbsp;первого дня</p>
         <p class="new" role="cell"><span class="vs-l" aria-hidden="true">С&nbsp;нами</span>Платите <em>только процент с&nbsp;прироста</em> выручки</p>
       </div>
-      <div class="vs-r g12" role="row">
+      <div class="vs-r g12" role="row" data-rv>
         <p class="old" role="cell"><span class="vs-l" aria-hidden="true">Обычно</span>В&nbsp;отчёте&nbsp;— клики и&nbsp;охваты</p>
         <p class="new" role="cell"><span class="vs-l" aria-hidden="true">С&nbsp;нами</span>В&nbsp;договоре&nbsp;— <em>цель по&nbsp;выручке</em></p>
       </div>
-      <div class="vs-r g12" role="row">
+      <div class="vs-r g12" role="row" data-rv>
         <p class="old" role="cell"><span class="vs-l" aria-hidden="true">Обычно</span>Не&nbsp;вышло&nbsp;— деньги остаются у&nbsp;подрядчика</p>
         <p class="new" role="cell"><span class="vs-l" aria-hidden="true">С&nbsp;нами</span>Нет прироста&nbsp;— за&nbsp;работу <em>0&nbsp;₽</em></p>
       </div>
@@ -986,7 +1001,7 @@ details[open] .pm::after{transform:rotate(0)}
       <p class="lead">Пять шагов — от аудита до цели по&nbsp;выручке.</p>
     </header>
     <ol class="flow" data-scrub data-from="0.82" data-to="0.3">
-      <li class="st" style="--i:0;--y0:16px;--y1:16px">
+      <li data-span="0.8" class="st" style="--i:0;--y0:16px;--y1:16px">
         <span class="seg flat" aria-hidden="true"><i></i></span>
         <span class="st-n" aria-hidden="true">1</span>
         <p class="st-when">7 дней</p>
@@ -999,7 +1014,7 @@ details[open] .pm::after{transform:rotate(0)}
           <li>Дорожная карта по каналам</li>
         </ul>
       </li>
-      <li class="st" style="--i:1;--y0:16px;--y1:16px">
+      <li data-span="0.8" class="st" style="--i:1;--y0:16px;--y1:16px">
         <span class="seg flat" aria-hidden="true"><i></i></span>
         <span class="st-n" aria-hidden="true">2</span>
         <p class="st-when">К 15-му дню</p>
@@ -1007,7 +1022,7 @@ details[open] .pm::after{transform:rotate(0)}
         <h3>Цель, бюджет, договор</h3>
         <p class="tx">Согласуем с вами цель по&nbsp;выручке, бюджет и&nbsp;процент с&nbsp;прироста. Все условия&nbsp;— в&nbsp;договоре.</p>
       </li>
-      <li class="st hot" style="--i:2;--y0:16px;--y1:52px">
+      <li data-span="0.8" class="st hot" style="--i:2;--y0:16px;--y1:52px">
         <span class="seg" aria-hidden="true"><i></i></span>
         <span class="st-n" aria-hidden="true">3</span>
         <p class="st-when">1-й месяц</p>
@@ -1015,7 +1030,7 @@ details[open] .pm::after{transform:rotate(0)}
         <h3>Запуск</h3>
         <p class="tx">Внедряем дорожную карту. Корректируем каналы по&nbsp;их эффективности.</p>
       </li>
-      <li class="st hot" style="--i:3;--y0:52px;--y1:94px">
+      <li data-span="0.8" class="st hot" style="--i:3;--y0:52px;--y1:94px">
         <span class="seg" aria-hidden="true"><i></i></span>
         <span class="st-n" aria-hidden="true">4</span>
         <p class="st-when">2-й месяц</p>
@@ -1023,7 +1038,7 @@ details[open] .pm::after{transform:rotate(0)}
         <h3>Отбор каналов</h3>
         <p class="tx">Оставляем те, что сработали в&nbsp;вашем городе. Ищем новые рабочие связки.</p>
       </li>
-      <li class="st hot" style="--i:4;--y0:94px;--y1:134px">
+      <li data-span="0.8" class="st hot" style="--i:4;--y0:94px;--y1:134px">
         <span class="seg" aria-hidden="true"><i></i></span>
         <span class="st-n" aria-hidden="true">5</span>
         <p class="st-when">3-й месяц</p>
@@ -1031,7 +1046,7 @@ details[open] .pm::after{transform:rotate(0)}
         <h3>Масштабирование</h3>
         <p class="tx">Усиливаем самые эффективные каналы, чтобы выйти на&nbsp;цель по&nbsp;выручке.</p>
       </li>
-      <li class="st goal" style="--i:5;--y0:134px;--y1:134px">
+      <li data-span="0.8" class="st goal" style="--i:5;--y0:134px;--y1:134px">
         <span class="seg flat" aria-hidden="true"><i></i></span>
         <span class="st-n" aria-hidden="true"><svg width="14" height="11" viewBox="0 0 16 12"><path d="M1.5 6l4.5 4.5L14.5 1.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         <p class="st-when">К концу 3-го месяца</p>
@@ -1057,10 +1072,10 @@ details[open] .pm::after{transform:rotate(0)}
       <h2 class="h2" id="t-ruk">Ведём гостя от&nbsp;первой рекламы <em>до&nbsp;третьего заказа</em></h2>
     </header>
     <ol class="path">
-      <li class="g12"><span class="k" aria-hidden="true">01</span><b>Увидел</b><span class="chips"><span class="chip">Яндекс Директ</span><span class="chip">Реклама ВКонтакте</span><span class="chip">Яндекс Карты и&nbsp;2ГИС</span><span class="chip">Блогеры</span><span class="chip more">Ещё 6+ каналов</span></span></li>
-      <li class="g12"><span class="k" aria-hidden="true">02</span><b>Выбрал</b><span class="chips"><span class="chip">Рейтинг и&nbsp;ответы на&nbsp;отзывы</span><span class="chip">Карточки на&nbsp;картах</span><span class="chip">Карточки в&nbsp;Яндекс Еде и&nbsp;Купере</span></span></li>
-      <li class="g12"><span class="k" aria-hidden="true">03</span><b>Заказал</b><span class="chips"><span class="chip">Ваш сайт и&nbsp;приложение</span><span class="chip">Сеты и&nbsp;акции, посчитанные через маржу</span></span></li>
-      <li class="g12"><span class="k" aria-hidden="true">04</span><b>Вернулся</b><span class="chips"><span class="chip">Рассылки по&nbsp;базе</span><span class="chip">Группа ВК</span><span class="chip">Сценарий «после первого заказа»</span><span class="chip">Сценарий «не&nbsp;заказывал 30&nbsp;дней»</span></span></li>
+      <li class="g12" data-rv><span class="k" aria-hidden="true">01</span><b>Увидел</b><span class="chips"><span class="chip">Яндекс Директ</span><span class="chip">Реклама ВКонтакте</span><span class="chip">Яндекс Карты и&nbsp;2ГИС</span><span class="chip">Блогеры</span><span class="chip more">Ещё 6+ каналов</span></span></li>
+      <li class="g12" data-rv><span class="k" aria-hidden="true">02</span><b>Выбрал</b><span class="chips"><span class="chip">Рейтинг и&nbsp;ответы на&nbsp;отзывы</span><span class="chip">Карточки на&nbsp;картах</span><span class="chip">Карточки в&nbsp;Яндекс Еде и&nbsp;Купере</span></span></li>
+      <li class="g12" data-rv><span class="k" aria-hidden="true">03</span><b>Заказал</b><span class="chips"><span class="chip">Ваш сайт и&nbsp;приложение</span><span class="chip">Сеты и&nbsp;акции, посчитанные через маржу</span></span></li>
+      <li class="g12" data-rv><span class="k" aria-hidden="true">04</span><b>Вернулся</b><span class="chips"><span class="chip">Рассылки по&nbsp;базе</span><span class="chip">Группа ВК</span><span class="chip">Сценарий «после первого заказа»</span><span class="chip">Сценарий «не&nbsp;заказывал 30&nbsp;дней»</span></span></li>
     </ol>
     <div class="foot-row g12">
       <p class="foot-t"><b>Скидкой 50% на&nbsp;сеты выручку не&nbsp;нагоняем.</b> Каждый сет и&nbsp;каждую акцию считаем через маржу и&nbsp;согласуем с&nbsp;вами.</p>
@@ -1076,10 +1091,10 @@ details[open] .pm::after{transform:rotate(0)}
       <h2 class="h2" id="t-op">Почему мы не&nbsp;боимся <em>отвечать за&nbsp;выручку</em></h2>
     </header>
     <div class="big g12">
-      <ul class="stats">
-        <li><p class="s-n">130<span class="s-pl">+</span></p><p class="s-t">ресторанов доставки суши и&nbsp;роллов ведём по&nbsp;всей России, включая Москву</p></li>
-        <li><p class="s-n"><span class="ph">42</span></p><p class="s-t">города&nbsp;— от&nbsp;<span class="ph">Тобольска</span> до&nbsp;столицы</p></li>
-        <li><p class="s-n"><span class="ph">9&nbsp;лет</span></p><p class="s-t">в&nbsp;маркетинге доставки суши</p></li>
+      <ul class="stats" data-rv>
+        <li><p class="s-n"><span data-count="130">130</span><span class="s-pl">+</span></p><p class="s-t">ресторанов доставки суши и&nbsp;роллов ведём по&nbsp;всей России, включая Москву</p></li>
+        <li><p class="s-n"><span class="ph"><span data-count="42">42</span></span></p><p class="s-t">города&nbsp;— от&nbsp;<span class="ph">Тобольска</span> до&nbsp;столицы</p></li>
+        <li><p class="s-n"><span class="ph"><span data-count="9">9</span>&nbsp;лет</span></p><p class="s-t">в&nbsp;маркетинге доставки суши</p></li>
       </ul>
     </div>
     <div class="because g12">
@@ -1515,7 +1530,7 @@ $$('.lit').forEach(function(el){
 });
 
 /* движение, привязанное к прокрутке: --p от 0 до 1 */
-var scrubs=$$('[data-scrub]'), ticking=false;
+var scrubs=$$('[data-scrub]'), spans=$$('[data-span]'), ticking=false;
 function measure(){
   var vh=window.innerHeight||root.clientHeight;
   scrubs.forEach(function(el){
@@ -1524,6 +1539,11 @@ function measure(){
     var p=(a*vh-r.top)/((a-b)*vh);
     p=p<0?0:(p>1?1:p);
     el.style.setProperty('--p',p.toFixed(3));
+  });
+  /* шаги на телефоне: линия доходит до той высоты экрана, до которой дочитали */
+  spans.forEach(function(el){
+    var r=el.getBoundingClientRect(), q=(parseFloat(el.getAttribute('data-span'))*vh-r.top)/(r.height||1);
+    el.style.setProperty('--q',(q<0?0:(q>1?1:q)).toFixed(3));
   });
 }
 
@@ -1806,6 +1826,34 @@ function csWake(){
 document.addEventListener('visibilitychange',csWake);
 window.addEventListener('pointermove',csWake,{passive:true});
 window.addEventListener('touchstart',csWake,{passive:true});
+
+/* появление при прокрутке: карточки договора, плашки каналов, цифры опыта досчитываются от нуля */
+function countUp(box){
+  $$('[data-count]',box).forEach(function(el,k){
+    var to=+el.getAttribute('data-count'), t0=0, ms=1100+k*200;
+    function tick(now){
+      if(!t0)t0=now;
+      var p=Math.min(1,(now-t0)/ms);
+      el.textContent=Math.round(to*(1-Math.pow(1-p,3)));
+      if(p<1)requestAnimationFrame(tick);
+    }
+    el.textContent='0';
+    requestAnimationFrame(tick);
+  });
+}
+if(!reduce&&'IntersectionObserver' in window){
+  $$('.path li').forEach(function(li){$$('.chip',li).forEach(function(c,i){c.style.setProperty('--rd',i)})});
+  var rvIO=new IntersectionObserver(function(list){
+    list.forEach(function(e){
+      if(!e.isIntersecting)return;
+      rvIO.unobserve(e.target);
+      e.target.classList.add('in');
+      countUp(e.target);
+    });
+  },{rootMargin:'0px 0px -10% 0px',threshold:.15});
+  root.classList.add('rv');
+  $$('[data-rv]').forEach(function(el){rvIO.observe(el)});
+}
 
 /* команда: на телефоне это лента из пяти карточек; точки показывают, какая сейчас на экране */
 var tmRail=$('#tm-rail'), tmDots=$('#tm-dots'), tmCards=$$('.tm-p',tmRail), tmCur=-1, tmBusy=false;
