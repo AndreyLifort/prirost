@@ -117,10 +117,10 @@
   --f-d:"Geologica","Golos Text","Segoe UI",system-ui,sans-serif;
   --f-t:"Golos Text","Segoe UI",Roboto,system-ui,sans-serif;
   --f-m:"IBM Plex Mono",ui-monospace,"Cascadia Mono",Consolas,monospace;
-  --hdr:76px; --lap:44px; --pad:100px; --gap:24px;
+  --hdr:76px; --lap:44px; --pad:100px; --gap:24px; --wp:40px;
   color-scheme:dark;
 }
-@media (max-width:699px){:root{--hdr:60px;--lap:28px;--pad:64px;--gap:16px}}
+@media (max-width:699px){:root{--hdr:60px;--lap:28px;--pad:64px;--gap:16px;--wp:20px}}
 
 *,*::before,*::after{box-sizing:border-box}
 [hidden]{display:none!important}
@@ -284,19 +284,25 @@ html.show-ph .ph{background:rgba(255,122,47,.2);box-shadow:0 0 0 4px rgba(255,12
 .old::before,.new::before{content:"";display:inline-block;width:.4em;height:.4em;margin-right:.5em;border-radius:50%;vertical-align:.14em}
 .old::before{border:1.5px solid var(--graphite)}
 .new::before{background:var(--ember)}
+.new em{font-style:normal;color:var(--ember-deep)}
 .sum-row{align-items:end;margin-top:46px}
 .sum-row .sum-t{grid-column:3/9;font:300 clamp(23px,2.7vw,39px)/1.12 var(--f-d);letter-spacing:-.04em;color:var(--ink);text-wrap:balance}
 .sum-row .sum-t em{font-style:normal;color:var(--ember-deep)}
 .sum-row .btn{grid-column:9/-1;justify-self:end}
 @media (max-width:899px){
-  .vs{margin-top:32px}
+  /* на телефоне каждая пара — карточка: серое «обычно» и тёмная плашка «с нами» */
+  .vs{display:grid;gap:12px;margin-top:28px}
   .vs-h{display:none}
-  .vs-r{display:block;padding:20px 0}
-  .vs-r:first-of-type{border-top:1px solid var(--pl2)}
-  .vs-l{display:block;margin-bottom:5px;font:500 11px/1.3 var(--f-m);letter-spacing:.09em;text-transform:uppercase;color:var(--graphite)}
-  .old{padding-right:0;margin-bottom:14px}
+  .vs-r{display:block;padding:0;border:0;border-radius:20px;background:var(--paper-2)}
+  .vs-l{display:flex;align-items:center;gap:8px;margin-bottom:8px;font:500 11px/1.3 var(--f-m);letter-spacing:.09em;text-transform:uppercase;color:var(--graphite)}
+  .vs-l::before{content:"";flex:none;width:18px;height:18px;background:center/18px 18px no-repeat}
+  .old .vs-l::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18'%3E%3Ccircle cx='9' cy='9' r='8.25' fill='none' stroke='%23666370' stroke-width='1.5'/%3E%3Cpath d='M6.2 6.2l5.6 5.6M11.8 6.2l-5.6 5.6' stroke='%23666370' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E")}
+  .new .vs-l::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18'%3E%3Ccircle cx='9' cy='9' r='9' fill='%23FF7A2F'/%3E%3Cpath d='M5.2 9.3l2.6 2.6 5-5.3' fill='none' stroke='%23141318' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")}
+  .old{padding:14px 18px 15px;font-size:17px;line-height:1.25}
   .old::before,.new::before{display:none}
-  .new .vs-l{color:var(--ember-deep)}
+  .new{padding:16px 18px 22px;border-radius:20px;background:linear-gradient(100deg,#FF6A2A,#FFA545 55%,#FFD79A) 0 100%/100% 3px no-repeat,var(--ink);color:var(--paper);font-size:23px;line-height:1.14}
+  .new .vs-l{color:var(--amber)}
+  .new em{color:var(--amber)}
   .sum-row{display:block;margin-top:30px}
   .sum-row .btn{margin-top:26px}
 }
@@ -320,7 +326,6 @@ html.show-ph .ph{background:rgba(255,122,47,.2);box-shadow:0 0 0 4px rgba(255,12
 .st .tx,.st ul{margin-top:10px;font:400 15px/1.45 var(--f-t);color:var(--fog)}
 .st ul li{position:relative;padding-left:14px}
 .st ul li::before{content:"";position:absolute;left:0;top:.72em;width:7px;height:1px;background:var(--ash)}
-.st-note{margin-top:12px;font:400 13px/1.42 var(--f-t);color:var(--ash)}
 .fin-row{align-items:center;margin-top:42px;padding-top:28px;border-top:1px solid var(--nl2)}
 .fin-row>div{grid-column:1/8}
 .fin-row .btn{grid-column:8/-1;justify-self:end}
@@ -349,6 +354,7 @@ html.show-ph .ph{background:rgba(255,122,47,.2);box-shadow:0 0 0 4px rgba(255,12
 .path b{grid-column:3/7;font:300 clamp(29px,3.5vw,50px)/1 var(--f-d);letter-spacing:-.045em;color:var(--ink)}
 .chips{grid-column:7/-1;display:flex;flex-wrap:wrap;gap:8px}
 .chip{display:inline-flex;align-items:center;min-height:40px;padding:8px 16px;border:1px solid var(--pl2);border-radius:999px;font:400 15px/1.25 var(--f-t);color:var(--ink)}
+.chip.more{border-color:var(--ink);background:var(--ink);color:var(--paper);font-weight:500}
 .foot-row{margin-top:36px}
 .foot-t{grid-column:3/10;font:400 19px/1.5 var(--f-t);color:var(--ink-2)}
 .foot-t b{color:var(--ink)}
@@ -362,15 +368,12 @@ html.show-ph .ph{background:rgba(255,122,47,.2);box-shadow:0 0 0 4px rgba(255,12
 }
 
 /* экран 5 — опыт: цифра-герой */
-.big{position:relative;align-items:end;margin-top:40px}
-.big-n{grid-column:1/9;margin-left:-.05em;font:200 clamp(132px,29vw,430px)/.8 var(--f-d);letter-spacing:-.075em;white-space:nowrap;color:var(--silver);transform:scale(calc(.9 + .1*var(--p)));transform-origin:0 100%}
-.big-n span{margin-left:.02em;letter-spacing:0;background:var(--heat);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 calc(34px*var(--p)) rgba(255,122,47,.55))}
-.stats{grid-column:9/-1;align-self:end}
-.stats li{padding:20px 0;border-top:1px solid var(--nl)}
-.stats li:first-child{border-top-color:var(--nl2)}
-.s-lead{font:300 clamp(20px,1.9vw,27px)/1.2 var(--f-d);letter-spacing:-.03em;color:var(--silver)}
-.s-n{font:200 clamp(40px,3.9vw,56px)/1 var(--f-d);letter-spacing:-.05em}
-.s-t{margin-top:6px;font:400 15.5px/1.45 var(--f-t);color:var(--fog)}
+.big{margin-top:44px}
+.stats{grid-column:3/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:var(--gap)}
+.stats li{padding-top:24px;border-top:1px solid var(--nl2)}
+.s-n{font:200 clamp(56px,6.6vw,100px)/1 var(--f-d);letter-spacing:-.055em;white-space:nowrap}
+.s-pl{margin-left:.02em;letter-spacing:0;background:var(--heat);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
+.s-t{margin-top:12px;max-width:17em;font:400 15.5px/1.45 var(--f-t);color:var(--fog)}
 .because{margin-top:64px}
 .because p{grid-column:3/11;font:300 clamp(22px,2.6vw,37px)/1.18 var(--f-d);letter-spacing:-.035em;color:var(--silver);text-wrap:balance}
 .mock-note{margin-top:16px;font:400 12.5px/1.5 var(--f-m);color:var(--ash)}
@@ -378,10 +381,13 @@ html.show-ph .ph{background:rgba(255,122,47,.2);box-shadow:0 0 0 4px rgba(255,12
 .paper .mock-note::before{color:var(--ember-deep)}
 .paper .mock-note{color:var(--graphite)}
 @media (max-width:899px){
-  .big{display:block;margin-top:24px}
-  .big-n{font-size:clamp(132px,40vw,300px)}
-  .stats{margin-top:28px}
-  .because{display:block;margin-top:40px}
+  .big{display:block;margin-top:28px}
+  .stats{display:block;border-bottom:1px solid var(--nl)}
+  .stats li{display:grid;grid-template-columns:136px minmax(0,1fr);column-gap:16px;align-items:center;padding:16px 0;border-top-color:var(--nl)}
+  .stats li:first-child{border-top-color:var(--nl2)}
+  .s-n{font-size:44px}
+  .s-t{margin-top:0;font-size:15px;line-height:1.4}
+  .because{display:block;margin-top:32px}
 }
 
 /* экран 6 — кейсы: ползунок «до → после», один кейс в двух видах — дашборд и таблица.
@@ -541,11 +547,13 @@ html.show-ph .cs-doc{box-shadow:0 0 0 4px rgba(255,122,47,.55)}
 .cs-ar:hover{border-color:var(--silver);background:rgba(238,235,242,.08)}
 .cs-cnt{flex:none;min-width:62px;text-align:right;font:500 12px/1 var(--f-m);letter-spacing:.08em;color:var(--ash)}
 .cs-cnt b{font-weight:500;color:var(--silver)}
+.cs-slide{display:contents}
+.cs-head{display:none}
 .cs-l .cs-hero{margin-top:0;padding-top:4px}
 .cs-l .cs-sl{margin-top:auto;padding-top:22px}
 @media (max-width:899px){
   .cs-nav{position:sticky;top:calc(var(--hdr) - 14px);z-index:6;gap:6px;margin:0 -20px 18px;padding:8px 14px;background:rgba(23,22,27,.9);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-block:1px solid var(--nl)}
-  .cs-ar{display:none}
+  .cs-nav .cs-ar{display:none}
   .cs-nav .cs-list{padding-inline:8px;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 8px,#000 calc(100% - 22px),transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 8px,#000 calc(100% - 22px),transparent 100%)}
   .cs-nav .cs-c{height:40px;padding:0 13px}
   .cs-cnt{min-width:48px}
@@ -554,6 +562,12 @@ html.show-ph .cs-doc{box-shadow:0 0 0 4px rgba(255,122,47,.55)}
 .cs-foot .btn{grid-column:9/-1}
 @media (max-width:1099px){
   .cs{display:block}
+  /* кейс листается целиком: город, цифры и дашборд едут одним слайдом */
+  .cs-slide{display:block;touch-action:pan-y;will-change:transform}
+  .cs-head{grid-column:1/-1;display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:22px}
+  .cs-city{font:300 30px/1.04 var(--f-d);letter-spacing:-.04em;color:var(--silver)}
+  .cs-hb{flex:none;display:flex;gap:8px}
+  .cs-head .cs-ar{width:40px;height:40px}
   .cs-l{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:var(--gap);align-items:end}
   .cs-list{grid-row:1/3;align-self:start}
   .cs-hero{margin-top:0;padding-top:0}
@@ -656,25 +670,29 @@ html.show-ph .cs-doc{box-shadow:0 0 0 4px rgba(255,122,47,.55)}
 @media (max-width:1199px){
   .tm-lead .tm-plate{height:360px}
 }
+.tm-dots{display:none}
+/* телефон и планшет: пять карточек одной лентой, листается пальцем; сверху место под головы */
 @media (max-width:999px){
-  .team{margin-top:104px}
-  .tm-duo{grid-template-columns:minmax(0,1fr);row-gap:100px}
-  .tm-lead .tm-plate{height:400px}
-}
-@media (max-width:699px){
-  .team{margin-top:88px}
-  .tm-duo{row-gap:88px}
-  .tm-lead .tm-plate{height:340px}
+  .team{margin-top:0}
+  .tm-rail{display:flex;align-items:flex-start;gap:14px;margin-inline:calc(-1*var(--wp));padding:92px var(--wp) 4px;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scroll-padding-inline:var(--wp);scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .tm-rail::-webkit-scrollbar{display:none}
+  .tm-duo,.tm-three{display:contents}
+  .tm-rail .tm-p{flex:none;width:min(84%,340px);scroll-snap-align:start}
+  .tm-rail .tm-plate{height:320px}
+  .tm-three .tm-name{margin-top:20px;font-size:26px}
   .tm-flip .tm-shot{left:-7%}
-  .tm-flip .tm-big{text-align:right}
+  /* цифра руководителя — внизу плашки, поверх затемнения: на узкой карточке фигура занимает всю ширину */
+  .tm-lead .tm-cut::after{content:"";position:absolute;inset:48% 0 0;background:linear-gradient(to top,rgba(20,19,24,.94) 12%,rgba(20,19,24,0))}
+  .tm-rail .tm-big{left:20px;top:auto;bottom:20px;font-size:44px}
+  .tm-rail .tm-flip .tm-big{left:auto;right:20px;text-align:right}
+  .tm-big small{margin-top:6px;color:var(--fog)}
   .tm-flip .tm-big small{margin-left:auto}
-  .tm-three{grid-template-columns:minmax(0,1fr);row-gap:64px;margin-top:80px}
-  .tm-three .tm-p{display:grid;grid-template-columns:112px minmax(0,1fr);column-gap:18px;align-items:start}
-  .tm-three .tm-plate{height:150px;border-radius:16px}
-  .tm-three .tm-plate::after{border-radius:0 0 16px 16px}
-  .tm-three .tm-cut{clip-path:inset(-160px 0 0 0 round 0 0 16px 16px)}
-  .tm-three .tm-name{margin-top:0}
-  .tm-ini{left:8px;bottom:8px;width:32px;height:32px;font-size:11.5px}
+  /* первая строка списка повторяет цифру с плашки */
+  .tm-lead .tm-b li:first-child{display:none}
+  .tm-dots{display:flex;justify-content:center;gap:8px;margin-top:24px}
+  .tm-dots i{width:6px;height:6px;border-radius:3px;background:var(--pl2);transition:width .25s,background-color .25s}
+  .tm-dots i.on{width:22px;background:var(--ink)}
+  .tm-foot{margin-top:24px}
 }
 /* экран 7 — расчёт по кассе */
 .calc{margin-top:46px}
@@ -760,10 +778,6 @@ details[open] .pm::after{transform:rotate(0)}
 /* бегущая строка и экран 10 — итог и форма */
 .fin{padding-top:0}
 .fin.last{padding-bottom:var(--pad)}
-.mq{overflow:clip;padding-block:22px 6px;border-bottom:1px solid var(--nl)}
-.mq-t{display:flex;width:max-content;animation:mq 46s linear infinite}
-.mq-t span{padding-right:.5em;font:200 clamp(58px,10.5vw,158px)/1.12 var(--f-d);letter-spacing:-.055em;white-space:nowrap;color:transparent;-webkit-text-stroke:1px var(--nl2)}
-.mq-t b{font-weight:200;color:var(--amber);-webkit-text-stroke:0}
 @keyframes mq{to{transform:translateX(-50%)}}
 .fin .heat{inset:auto 0 0;height:70%;overflow:hidden}
 .fin .heat .a{left:8%;bottom:-62%;width:84%;height:120%;background:radial-gradient(closest-side,rgba(110,22,52,.9),rgba(110,22,52,.4) 60%,transparent);transform:translateY(calc((1 - var(--p))*22%))}
@@ -924,9 +938,8 @@ details[open] .pm::after{transform:rotate(0)}
   <div class="wrap who-g">
     <div class="who-t">
       <p class="label">Кто мы</p>
-      <h2 class="who-h" id="t-who">Вы покупаете не&nbsp;настройку рекламы, а&nbsp;<em>экспертизу, заработанную на&nbsp;130+ ресторанах</em> суши и&nbsp;роллов в&nbsp;России и&nbsp;за&nbsp;рубежом</h2>
-      <p class="who-p">Мы ведём маркетинг 130+ ресторанов доставки суши и&nbsp;роллов: от&nbsp;Смоленска до&nbsp;Иркутска, от&nbsp;Новороссийска до&nbsp;Норильска. Работали в&nbsp;Беларуси, Казахстане, Литве, Польше и&nbsp;ОАЭ.</p>
-      <p class="who-p">Поэтому не&nbsp;гадаем, а&nbsp;знаем по&nbsp;цифрам: какой канал приводит гостя в&nbsp;городе на&nbsp;300&nbsp;тысяч жителей и&nbsp;какой&nbsp;— в&nbsp;Москве, сколько стоит первый заказ, на&nbsp;какой акции точка зарабатывает, а&nbsp;на&nbsp;какой теряет. Большинство решений, которые мы принесём в&nbsp;вашу доставку, уже проверены на&nbsp;этих ресторанах&nbsp;— не&nbsp;на&nbsp;ваших деньгах.</p>
+      <h2 class="who-h" id="t-who">Вы покупаете не&nbsp;настройку рекламы, а&nbsp;<em>опыт 130+ ресторанов</em> суши и&nbsp;роллов</h2>
+      <p class="who-p">Ведём их&nbsp;маркетинг по&nbsp;всей России, работали в&nbsp;пяти странах. Большинство решений для вашей доставки уже проверены на&nbsp;этих ресторанах&nbsp;— не&nbsp;на&nbsp;ваших деньгах.</p>
     </div>
     <figure class="who-m">
       <svg class="mp" viewBox="0 0 737 402" role="img" aria-label="Карта Евразии: огнями отмечены города партнёров в России, кольцами — Беларусь, Казахстан, Литва, Польша и ОАЭ"><path class="mp-d" d="M442.5 3.6h0M450.0 3.6h0M288.7 11.1h0M423.8 11.1h0M431.3 11.1h0M438.8 11.1h0M446.3 11.1h0M453.8 11.1h0M461.3 11.1h0M468.8 11.1h0M277.5 18.6h0M382.5 18.6h0M390.0 18.6h0M397.5 18.6h0M405.0 18.6h0M412.5 18.6h0M420.0 18.6h0M427.5 18.6h0M435.0 18.6h0M442.5 18.6h0M450.0 18.6h0M457.5 18.6h0M465.0 18.6h0M472.5 18.6h0M258.7 26.1h0M266.2 26.1h0M356.3 26.1h0M363.8 26.1h0M371.3 26.1h0M378.8 26.1h0M386.3 26.1h0M393.8 26.1h0M401.3 26.1h0M408.8 26.1h0M416.3 26.1h0M423.8 26.1h0M431.3 26.1h0M438.8 26.1h0M446.3 26.1h0M453.8 26.1h0M461.3 26.1h0M468.8 26.1h0M476.3 26.1h0M255.0 33.6h0M262.5 33.6h0M337.5 33.6h0M345.0 33.6h0M352.5 33.6h0M360.0 33.6h0M367.5 33.6h0M375.0 33.6h0M382.5 33.6h0M390.0 33.6h0M397.5 33.6h0M405.0 33.6h0M412.5 33.6h0M420.0 33.6h0M427.5 33.6h0M435.0 33.6h0M442.5 33.6h0M450.0 33.6h0M457.5 33.6h0M465.0 33.6h0M472.5 33.6h0M480.0 33.6h0M487.5 33.6h0M495.0 33.6h0M502.5 33.6h0M510.0 33.6h0M517.5 33.6h0M525.0 33.6h0M532.5 33.6h0M585.0 33.6h0M243.7 41.1h0M251.2 41.1h0M258.7 41.1h0M311.2 41.1h0M318.7 41.1h0M333.7 41.1h0M341.2 41.1h0M348.8 41.1h0M356.3 41.1h0M363.8 41.1h0M371.3 41.1h0M378.8 41.1h0M386.3 41.1h0M393.8 41.1h0M401.3 41.1h0M408.8 41.1h0M416.3 41.1h0M423.8 41.1h0M431.3 41.1h0M438.8 41.1h0M446.3 41.1h0M453.8 41.1h0M461.3 41.1h0M468.8 41.1h0M476.3 41.1h0M483.8 41.1h0M491.3 41.1h0M498.8 41.1h0M506.3 41.1h0M513.8 41.1h0M521.3 41.1h0M528.8 41.1h0M536.3 41.1h0M551.3 41.1h0M558.8 41.1h0M566.3 41.1h0M573.8 41.1h0M581.3 41.1h0M588.8 41.1h0M596.3 41.1h0M603.8 41.1h0M611.3 41.1h0M618.8 41.1h0M626.3 41.1h0M120.0 48.6h0M127.5 48.6h0M135.0 48.6h0M142.5 48.6h0M150.0 48.6h0M157.5 48.6h0M165.0 48.6h0M307.5 48.6h0M315.0 48.6h0M322.5 48.6h0M330.0 48.6h0M337.5 48.6h0M345.0 48.6h0M352.5 48.6h0M360.0 48.6h0M367.5 48.6h0M375.0 48.6h0M382.5 48.6h0M390.0 48.6h0M397.5 48.6h0M405.0 48.6h0M412.5 48.6h0M420.0 48.6h0M427.5 48.6h0M435.0 48.6h0M442.5 48.6h0M450.0 48.6h0M457.5 48.6h0M465.0 48.6h0M472.5 48.6h0M480.0 48.6h0M487.5 48.6h0M495.0 48.6h0M502.5 48.6h0M510.0 48.6h0M517.5 48.6h0M525.0 48.6h0M532.5 48.6h0M540.0 48.6h0M547.5 48.6h0M555.0 48.6h0M562.5 48.6h0M570.0 48.6h0M577.5 48.6h0M585.0 48.6h0M592.5 48.6h0M600.0 48.6h0M607.5 48.6h0M615.0 48.6h0M622.5 48.6h0M630.0 48.6h0M637.5 48.6h0M645.0 48.6h0M652.5 48.6h0M690.0 48.6h0M697.5 48.6h0M108.8 56.1h0M116.2 56.1h0M123.7 56.1h0M131.2 56.1h0M138.7 56.1h0M146.2 56.1h0M153.7 56.1h0M161.2 56.1h0M168.7 56.1h0M176.2 56.1h0M258.7 56.1h0M266.2 56.1h0M273.7 56.1h0M281.2 56.1h0M288.7 56.1h0M296.2 56.1h0M303.7 56.1h0M311.2 56.1h0M318.7 56.1h0M326.2 56.1h0M333.7 56.1h0M341.2 56.1h0M348.8 56.1h0M356.3 56.1h0M363.8 56.1h0M371.3 56.1h0M378.8 56.1h0M386.3 56.1h0M393.8 56.1h0M401.3 56.1h0M408.8 56.1h0M416.3 56.1h0M423.8 56.1h0M431.3 56.1h0M438.8 56.1h0M446.3 56.1h0M453.8 56.1h0M461.3 56.1h0M468.8 56.1h0M476.3 56.1h0M483.8 56.1h0M491.3 56.1h0M498.8 56.1h0M506.3 56.1h0M513.8 56.1h0M521.3 56.1h0M528.8 56.1h0M536.3 56.1h0M543.8 56.1h0M551.3 56.1h0M558.8 56.1h0M566.3 56.1h0M573.8 56.1h0M581.3 56.1h0M588.8 56.1h0M596.3 56.1h0M603.8 56.1h0M611.3 56.1h0M618.8 56.1h0M626.3 56.1h0M633.8 56.1h0M641.3 56.1h0M648.8 56.1h0M656.3 56.1h0M663.8 56.1h0M671.3 56.1h0M678.8 56.1h0M686.3 56.1h0M693.8 56.1h0M701.3 56.1h0M708.8 56.1h0M716.3 56.1h0M723.8 56.1h0M731.3 56.1h0M97.5 63.6h0M105.0 63.6h0M112.5 63.6h0M120.0 63.6h0M127.5 63.6h0M135.0 63.6h0M142.5 63.6h0M150.0 63.6h0M157.5 63.6h0M165.0 63.6h0M172.5 63.6h0M180.0 63.6h0M187.5 63.6h0M195.0 63.6h0M217.5 63.6h0M225.0 63.6h0M232.5 63.6h0M240.0 63.6h0M247.5 63.6h0M255.0 63.6h0M262.5 63.6h0M270.0 63.6h0M277.5 63.6h0M285.0 63.6h0M292.5 63.6h0M300.0 63.6h0M307.5 63.6h0M315.0 63.6h0M322.5 63.6h0M330.0 63.6h0M337.5 63.6h0M345.0 63.6h0M352.5 63.6h0M360.0 63.6h0M367.5 63.6h0M375.0 63.6h0M382.5 63.6h0M390.0 63.6h0M397.5 63.6h0M405.0 63.6h0M412.5 63.6h0M420.0 63.6h0M427.5 63.6h0M435.0 63.6h0M442.5 63.6h0M450.0 63.6h0M457.5 63.6h0M465.0 63.6h0M472.5 63.6h0M480.0 63.6h0M487.5 63.6h0M495.0 63.6h0M502.5 63.6h0M510.0 63.6h0M517.5 63.6h0M525.0 63.6h0M532.5 63.6h0M540.0 63.6h0M547.5 63.6h0M555.0 63.6h0M562.5 63.6h0M570.0 63.6h0M577.5 63.6h0M585.0 63.6h0M592.5 63.6h0M600.0 63.6h0M607.5 63.6h0M615.0 63.6h0M622.5 63.6h0M630.0 63.6h0M637.5 63.6h0M645.0 63.6h0M652.5 63.6h0M660.0 63.6h0M667.5 63.6h0M675.0 63.6h0M682.5 63.6h0M690.0 63.6h0M697.5 63.6h0M705.0 63.6h0M712.5 63.6h0M720.0 63.6h0M727.5 63.6h0M735.0 63.6h0M93.7 71.1h0M101.2 71.1h0M108.8 71.1h0M116.2 71.1h0M123.7 71.1h0M131.2 71.1h0M138.7 71.1h0M146.2 71.1h0M153.7 71.1h0M161.2 71.1h0M168.7 71.1h0M213.7 71.1h0M221.2 71.1h0M228.7 71.1h0M236.2 71.1h0M243.7 71.1h0M251.2 71.1h0M258.7 71.1h0M266.2 71.1h0M273.7 71.1h0M281.2 71.1h0M288.7 71.1h0M296.2 71.1h0M303.7 71.1h0M311.2 71.1h0M318.7 71.1h0M326.2 71.1h0M333.7 71.1h0M341.2 71.1h0M348.8 71.1h0M356.3 71.1h0M363.8 71.1h0M371.3 71.1h0M378.8 71.1h0M386.3 71.1h0M393.8 71.1h0M401.3 71.1h0M408.8 71.1h0M416.3 71.1h0M423.8 71.1h0M431.3 71.1h0M438.8 71.1h0M446.3 71.1h0M453.8 71.1h0M461.3 71.1h0M468.8 71.1h0M476.3 71.1h0M483.8 71.1h0M491.3 71.1h0M498.8 71.1h0M506.3 71.1h0M513.8 71.1h0M521.3 71.1h0M528.8 71.1h0M536.3 71.1h0M543.8 71.1h0M551.3 71.1h0M558.8 71.1h0M566.3 71.1h0M573.8 71.1h0M581.3 71.1h0M588.8 71.1h0M596.3 71.1h0M603.8 71.1h0M611.3 71.1h0M618.8 71.1h0M626.3 71.1h0M633.8 71.1h0M641.3 71.1h0M648.8 71.1h0M656.3 71.1h0M663.8 71.1h0M671.3 71.1h0M678.8 71.1h0M686.3 71.1h0M693.8 71.1h0M701.3 71.1h0M708.8 71.1h0M716.3 71.1h0M723.8 71.1h0M731.3 71.1h0M90.0 78.6h0M97.5 78.6h0M105.0 78.6h0M112.5 78.6h0M120.0 78.6h0M142.5 78.6h0M150.0 78.6h0M157.5 78.6h0M165.0 78.6h0M172.5 78.6h0M202.5 78.6h0M210.0 78.6h0M217.5 78.6h0M225.0 78.6h0M232.5 78.6h0M240.0 78.6h0M247.5 78.6h0M255.0 78.6h0M262.5 78.6h0M270.0 78.6h0M277.5 78.6h0M285.0 78.6h0M292.5 78.6h0M300.0 78.6h0M307.5 78.6h0M315.0 78.6h0M322.5 78.6h0M330.0 78.6h0M337.5 78.6h0M345.0 78.6h0M352.5 78.6h0M360.0 78.6h0M367.5 78.6h0M375.0 78.6h0M382.5 78.6h0M390.0 78.6h0M397.5 78.6h0M405.0 78.6h0M412.5 78.6h0M420.0 78.6h0M427.5 78.6h0M435.0 78.6h0M442.5 78.6h0M450.0 78.6h0M457.5 78.6h0M465.0 78.6h0M472.5 78.6h0M480.0 78.6h0M487.5 78.6h0M495.0 78.6h0M502.5 78.6h0M510.0 78.6h0M517.5 78.6h0M525.0 78.6h0M532.5 78.6h0M540.0 78.6h0M547.5 78.6h0M555.0 78.6h0M562.5 78.6h0M570.0 78.6h0M577.5 78.6h0M585.0 78.6h0M592.5 78.6h0M600.0 78.6h0M607.5 78.6h0M615.0 78.6h0M622.5 78.6h0M630.0 78.6h0M637.5 78.6h0M645.0 78.6h0M652.5 78.6h0M660.0 78.6h0M667.5 78.6h0M675.0 78.6h0M682.5 78.6h0M690.0 78.6h0M697.5 78.6h0M705.0 78.6h0M712.5 78.6h0M720.0 78.6h0M727.5 78.6h0M735.0 78.6h0M78.8 86.1h0M86.2 86.1h0M93.7 86.1h0M101.2 86.1h0M108.8 86.1h0M116.2 86.1h0M131.2 86.1h0M138.7 86.1h0M146.2 86.1h0M153.7 86.1h0M161.2 86.1h0M168.7 86.1h0M176.2 86.1h0M183.7 86.1h0M191.2 86.1h0M198.7 86.1h0M206.2 86.1h0M213.7 86.1h0M221.2 86.1h0M228.7 86.1h0M236.2 86.1h0M243.7 86.1h0M251.2 86.1h0M258.7 86.1h0M266.2 86.1h0M273.7 86.1h0M281.2 86.1h0M288.7 86.1h0M296.2 86.1h0M303.7 86.1h0M311.2 86.1h0M318.7 86.1h0M326.2 86.1h0M333.7 86.1h0M341.2 86.1h0M348.8 86.1h0M356.3 86.1h0M363.8 86.1h0M371.3 86.1h0M378.8 86.1h0M386.3 86.1h0M393.8 86.1h0M401.3 86.1h0M408.8 86.1h0M416.3 86.1h0M423.8 86.1h0M431.3 86.1h0M438.8 86.1h0M446.3 86.1h0M453.8 86.1h0M461.3 86.1h0M468.8 86.1h0M476.3 86.1h0M483.8 86.1h0M491.3 86.1h0M498.8 86.1h0M506.3 86.1h0M513.8 86.1h0M521.3 86.1h0M528.8 86.1h0M536.3 86.1h0M543.8 86.1h0M551.3 86.1h0M558.8 86.1h0M566.3 86.1h0M573.8 86.1h0M581.3 86.1h0M588.8 86.1h0M596.3 86.1h0M603.8 86.1h0M611.3 86.1h0M618.8 86.1h0M626.3 86.1h0M633.8 86.1h0M641.3 86.1h0M648.8 86.1h0M656.3 86.1h0M663.8 86.1h0M671.3 86.1h0M678.8 86.1h0M686.3 86.1h0M693.8 86.1h0M701.3 86.1h0M708.8 86.1h0M716.3 86.1h0M723.8 86.1h0M731.3 86.1h0M67.5 93.6h0M75.0 93.6h0M82.5 93.6h0M90.0 93.6h0M97.5 93.6h0M105.0 93.6h0M127.5 93.6h0M135.0 93.6h0M142.5 93.6h0M150.0 93.6h0M157.5 93.6h0M165.0 93.6h0M172.5 93.6h0M180.0 93.6h0M187.5 93.6h0M195.0 93.6h0M202.5 93.6h0M210.0 93.6h0M217.5 93.6h0M225.0 93.6h0M232.5 93.6h0M240.0 93.6h0M247.5 93.6h0M255.0 93.6h0M262.5 93.6h0M270.0 93.6h0M277.5 93.6h0M285.0 93.6h0M292.5 93.6h0M300.0 93.6h0M307.5 93.6h0M315.0 93.6h0M322.5 93.6h0M330.0 93.6h0M337.5 93.6h0M345.0 93.6h0M352.5 93.6h0M360.0 93.6h0M367.5 93.6h0M375.0 93.6h0M382.5 93.6h0M390.0 93.6h0M397.5 93.6h0M405.0 93.6h0M412.5 93.6h0M420.0 93.6h0M427.5 93.6h0M435.0 93.6h0M442.5 93.6h0M450.0 93.6h0M457.5 93.6h0M465.0 93.6h0M472.5 93.6h0M480.0 93.6h0M487.5 93.6h0M495.0 93.6h0M502.5 93.6h0M510.0 93.6h0M517.5 93.6h0M525.0 93.6h0M532.5 93.6h0M540.0 93.6h0M547.5 93.6h0M555.0 93.6h0M562.5 93.6h0M570.0 93.6h0M577.5 93.6h0M585.0 93.6h0M592.5 93.6h0M600.0 93.6h0M607.5 93.6h0M615.0 93.6h0M622.5 93.6h0M630.0 93.6h0M637.5 93.6h0M645.0 93.6h0M652.5 93.6h0M660.0 93.6h0M667.5 93.6h0M675.0 93.6h0M682.5 93.6h0M690.0 93.6h0M697.5 93.6h0M705.0 93.6h0M712.5 93.6h0M720.0 93.6h0M727.5 93.6h0M63.8 101.1h0M71.2 101.1h0M78.8 101.1h0M86.2 101.1h0M93.7 101.1h0M101.2 101.1h0M131.2 101.1h0M138.7 101.1h0M146.2 101.1h0M153.7 101.1h0M161.2 101.1h0M168.7 101.1h0M176.2 101.1h0M183.7 101.1h0M191.2 101.1h0M198.7 101.1h0M206.2 101.1h0M213.7 101.1h0M221.2 101.1h0M228.7 101.1h0M236.2 101.1h0M243.7 101.1h0M251.2 101.1h0M258.7 101.1h0M266.2 101.1h0M273.7 101.1h0M281.2 101.1h0M288.7 101.1h0M296.2 101.1h0M303.7 101.1h0M311.2 101.1h0M318.7 101.1h0M326.2 101.1h0M333.7 101.1h0M341.2 101.1h0M348.8 101.1h0M356.3 101.1h0M363.8 101.1h0M371.3 101.1h0M378.8 101.1h0M386.3 101.1h0M393.8 101.1h0M401.3 101.1h0M408.8 101.1h0M416.3 101.1h0M423.8 101.1h0M431.3 101.1h0M438.8 101.1h0M446.3 101.1h0M453.8 101.1h0M461.3 101.1h0M468.8 101.1h0M476.3 101.1h0M483.8 101.1h0M491.3 101.1h0M498.8 101.1h0M506.3 101.1h0M513.8 101.1h0M521.3 101.1h0M528.8 101.1h0M536.3 101.1h0M543.8 101.1h0M551.3 101.1h0M558.8 101.1h0M566.3 101.1h0M573.8 101.1h0M581.3 101.1h0M588.8 101.1h0M596.3 101.1h0M603.8 101.1h0M611.3 101.1h0M618.8 101.1h0M626.3 101.1h0M633.8 101.1h0M641.3 101.1h0M648.8 101.1h0M656.3 101.1h0M663.8 101.1h0M671.3 101.1h0M678.8 101.1h0M686.3 101.1h0M693.8 101.1h0M701.3 101.1h0M708.8 101.1h0M67.5 108.6h0M75.0 108.6h0M82.5 108.6h0M90.0 108.6h0M97.5 108.6h0M105.0 108.6h0M112.5 108.6h0M157.5 108.6h0M165.0 108.6h0M172.5 108.6h0M180.0 108.6h0M187.5 108.6h0M195.0 108.6h0M202.5 108.6h0M210.0 108.6h0M217.5 108.6h0M225.0 108.6h0M232.5 108.6h0M240.0 108.6h0M247.5 108.6h0M255.0 108.6h0M262.5 108.6h0M270.0 108.6h0M277.5 108.6h0M285.0 108.6h0M292.5 108.6h0M300.0 108.6h0M307.5 108.6h0M315.0 108.6h0M322.5 108.6h0M330.0 108.6h0M337.5 108.6h0M345.0 108.6h0M352.5 108.6h0M360.0 108.6h0M367.5 108.6h0M375.0 108.6h0M382.5 108.6h0M390.0 108.6h0M397.5 108.6h0M405.0 108.6h0M412.5 108.6h0M420.0 108.6h0M427.5 108.6h0M435.0 108.6h0M442.5 108.6h0M450.0 108.6h0M457.5 108.6h0M465.0 108.6h0M472.5 108.6h0M480.0 108.6h0M487.5 108.6h0M495.0 108.6h0M502.5 108.6h0M510.0 108.6h0M517.5 108.6h0M525.0 108.6h0M532.5 108.6h0M540.0 108.6h0M547.5 108.6h0M555.0 108.6h0M562.5 108.6h0M570.0 108.6h0M577.5 108.6h0M585.0 108.6h0M592.5 108.6h0M600.0 108.6h0M607.5 108.6h0M615.0 108.6h0M622.5 108.6h0M630.0 108.6h0M637.5 108.6h0M645.0 108.6h0M660.0 108.6h0M667.5 108.6h0M675.0 108.6h0M682.5 108.6h0M71.2 116.1h0M86.2 116.1h0M93.7 116.1h0M101.2 116.1h0M108.8 116.1h0M138.7 116.1h0M146.2 116.1h0M153.7 116.1h0M161.2 116.1h0M168.7 116.1h0M176.2 116.1h0M183.7 116.1h0M191.2 116.1h0M198.7 116.1h0M206.2 116.1h0M213.7 116.1h0M221.2 116.1h0M228.7 116.1h0M236.2 116.1h0M243.7 116.1h0M251.2 116.1h0M258.7 116.1h0M266.2 116.1h0M273.7 116.1h0M281.2 116.1h0M288.7 116.1h0M296.2 116.1h0M303.7 116.1h0M311.2 116.1h0M318.7 116.1h0M326.2 116.1h0M333.7 116.1h0M341.2 116.1h0M348.8 116.1h0M356.3 116.1h0M363.8 116.1h0M371.3 116.1h0M378.8 116.1h0M386.3 116.1h0M393.8 116.1h0M401.3 116.1h0M408.8 116.1h0M416.3 116.1h0M423.8 116.1h0M431.3 116.1h0M438.8 116.1h0M446.3 116.1h0M453.8 116.1h0M461.3 116.1h0M468.8 116.1h0M476.3 116.1h0M483.8 116.1h0M491.3 116.1h0M498.8 116.1h0M506.3 116.1h0M513.8 116.1h0M521.3 116.1h0M528.8 116.1h0M536.3 116.1h0M543.8 116.1h0M551.3 116.1h0M558.8 116.1h0M566.3 116.1h0M573.8 116.1h0M581.3 116.1h0M588.8 116.1h0M656.3 116.1h0M663.8 116.1h0M671.3 116.1h0M22.5 123.6h0M30.0 123.6h0M82.5 123.6h0M90.0 123.6h0M97.5 123.6h0M105.0 123.6h0M127.5 123.6h0M135.0 123.6h0M142.5 123.6h0M150.0 123.6h0M157.5 123.6h0M165.0 123.6h0M172.5 123.6h0M180.0 123.6h0M187.5 123.6h0M195.0 123.6h0M202.5 123.6h0M210.0 123.6h0M217.5 123.6h0M225.0 123.6h0M232.5 123.6h0M240.0 123.6h0M247.5 123.6h0M255.0 123.6h0M262.5 123.6h0M270.0 123.6h0M277.5 123.6h0M285.0 123.6h0M292.5 123.6h0M300.0 123.6h0M307.5 123.6h0M315.0 123.6h0M322.5 123.6h0M330.0 123.6h0M337.5 123.6h0M345.0 123.6h0M352.5 123.6h0M360.0 123.6h0M367.5 123.6h0M375.0 123.6h0M382.5 123.6h0M390.0 123.6h0M397.5 123.6h0M405.0 123.6h0M412.5 123.6h0M420.0 123.6h0M427.5 123.6h0M435.0 123.6h0M442.5 123.6h0M450.0 123.6h0M457.5 123.6h0M465.0 123.6h0M472.5 123.6h0M480.0 123.6h0M487.5 123.6h0M495.0 123.6h0M502.5 123.6h0M510.0 123.6h0M517.5 123.6h0M525.0 123.6h0M532.5 123.6h0M540.0 123.6h0M547.5 123.6h0M555.0 123.6h0M562.5 123.6h0M570.0 123.6h0M577.5 123.6h0M652.5 123.6h0M660.0 123.6h0M667.5 123.6h0M26.2 131.1h0M33.8 131.1h0M78.8 131.1h0M93.7 131.1h0M131.2 131.1h0M138.7 131.1h0M146.2 131.1h0M153.7 131.1h0M161.2 131.1h0M168.7 131.1h0M176.2 131.1h0M183.7 131.1h0M191.2 131.1h0M198.7 131.1h0M206.2 131.1h0M213.7 131.1h0M221.2 131.1h0M228.7 131.1h0M236.2 131.1h0M243.7 131.1h0M251.2 131.1h0M258.7 131.1h0M266.2 131.1h0M273.7 131.1h0M281.2 131.1h0M288.7 131.1h0M296.2 131.1h0M303.7 131.1h0M311.2 131.1h0M318.7 131.1h0M326.2 131.1h0M333.7 131.1h0M341.2 131.1h0M348.8 131.1h0M356.3 131.1h0M363.8 131.1h0M371.3 131.1h0M378.8 131.1h0M386.3 131.1h0M393.8 131.1h0M401.3 131.1h0M408.8 131.1h0M416.3 131.1h0M423.8 131.1h0M431.3 131.1h0M438.8 131.1h0M446.3 131.1h0M453.8 131.1h0M461.3 131.1h0M468.8 131.1h0M476.3 131.1h0M483.8 131.1h0M491.3 131.1h0M498.8 131.1h0M506.3 131.1h0M513.8 131.1h0M521.3 131.1h0M528.8 131.1h0M536.3 131.1h0M543.8 131.1h0M551.3 131.1h0M558.8 131.1h0M566.3 131.1h0M573.8 131.1h0M648.8 131.1h0M656.3 131.1h0M663.8 131.1h0M15.0 138.6h0M30.0 138.6h0M82.5 138.6h0M120.0 138.6h0M127.5 138.6h0M135.0 138.6h0M142.5 138.6h0M150.0 138.6h0M157.5 138.6h0M165.0 138.6h0M172.5 138.6h0M180.0 138.6h0M187.5 138.6h0M195.0 138.6h0M202.5 138.6h0M210.0 138.6h0M217.5 138.6h0M225.0 138.6h0M232.5 138.6h0M240.0 138.6h0M247.5 138.6h0M255.0 138.6h0M262.5 138.6h0M270.0 138.6h0M277.5 138.6h0M285.0 138.6h0M292.5 138.6h0M300.0 138.6h0M307.5 138.6h0M315.0 138.6h0M322.5 138.6h0M330.0 138.6h0M337.5 138.6h0M345.0 138.6h0M352.5 138.6h0M360.0 138.6h0M367.5 138.6h0M375.0 138.6h0M382.5 138.6h0M390.0 138.6h0M397.5 138.6h0M405.0 138.6h0M412.5 138.6h0M420.0 138.6h0M427.5 138.6h0M435.0 138.6h0M442.5 138.6h0M450.0 138.6h0M457.5 138.6h0M465.0 138.6h0M472.5 138.6h0M480.0 138.6h0M487.5 138.6h0M495.0 138.6h0M502.5 138.6h0M510.0 138.6h0M517.5 138.6h0M525.0 138.6h0M532.5 138.6h0M540.0 138.6h0M547.5 138.6h0M555.0 138.6h0M562.5 138.6h0M570.0 138.6h0M577.5 138.6h0M652.5 138.6h0M660.0 138.6h0M11.2 146.1h0M18.8 146.1h0M33.8 146.1h0M41.2 146.1h0M71.2 146.1h0M78.8 146.1h0M86.2 146.1h0M93.7 146.1h0M101.2 146.1h0M108.8 146.1h0M116.2 146.1h0M123.7 146.1h0M131.2 146.1h0M138.7 146.1h0M146.2 146.1h0M153.7 146.1h0M161.2 146.1h0M168.7 146.1h0M176.2 146.1h0M183.7 146.1h0M191.2 146.1h0M198.7 146.1h0M206.2 146.1h0M213.7 146.1h0M221.2 146.1h0M228.7 146.1h0M236.2 146.1h0M243.7 146.1h0M251.2 146.1h0M258.7 146.1h0M266.2 146.1h0M273.7 146.1h0M281.2 146.1h0M288.7 146.1h0M296.2 146.1h0M303.7 146.1h0M311.2 146.1h0M318.7 146.1h0M326.2 146.1h0M333.7 146.1h0M341.2 146.1h0M348.8 146.1h0M356.3 146.1h0M363.8 146.1h0M371.3 146.1h0M378.8 146.1h0M386.3 146.1h0M393.8 146.1h0M401.3 146.1h0M408.8 146.1h0M416.3 146.1h0M423.8 146.1h0M431.3 146.1h0M438.8 146.1h0M446.3 146.1h0M453.8 146.1h0M461.3 146.1h0M468.8 146.1h0M476.3 146.1h0M483.8 146.1h0M491.3 146.1h0M498.8 146.1h0M506.3 146.1h0M513.8 146.1h0M521.3 146.1h0M528.8 146.1h0M536.3 146.1h0M543.8 146.1h0M551.3 146.1h0M558.8 146.1h0M566.3 146.1h0M573.8 146.1h0M581.3 146.1h0M648.8 146.1h0M656.3 146.1h0M7.5 153.6h0M15.0 153.6h0M30.0 153.6h0M37.5 153.6h0M45.0 153.6h0M60.0 153.6h0M67.5 153.6h0M75.0 153.6h0M82.5 153.6h0M90.0 153.6h0M97.5 153.6h0M105.0 153.6h0M112.5 153.6h0M120.0 153.6h0M127.5 153.6h0M135.0 153.6h0M142.5 153.6h0M150.0 153.6h0M157.5 153.6h0M165.0 153.6h0M172.5 153.6h0M180.0 153.6h0M187.5 153.6h0M195.0 153.6h0M202.5 153.6h0M210.0 153.6h0M217.5 153.6h0M225.0 153.6h0M232.5 153.6h0M240.0 153.6h0M247.5 153.6h0M255.0 153.6h0M262.5 153.6h0M270.0 153.6h0M277.5 153.6h0M285.0 153.6h0M292.5 153.6h0M300.0 153.6h0M307.5 153.6h0M315.0 153.6h0M322.5 153.6h0M330.0 153.6h0M337.5 153.6h0M345.0 153.6h0M352.5 153.6h0M360.0 153.6h0M367.5 153.6h0M375.0 153.6h0M382.5 153.6h0M390.0 153.6h0M397.5 153.6h0M405.0 153.6h0M412.5 153.6h0M420.0 153.6h0M427.5 153.6h0M435.0 153.6h0M442.5 153.6h0M450.0 153.6h0M457.5 153.6h0M465.0 153.6h0M472.5 153.6h0M480.0 153.6h0M487.5 153.6h0M495.0 153.6h0M502.5 153.6h0M510.0 153.6h0M517.5 153.6h0M525.0 153.6h0M532.5 153.6h0M540.0 153.6h0M547.5 153.6h0M555.0 153.6h0M562.5 153.6h0M570.0 153.6h0M577.5 153.6h0M585.0 153.6h0M592.5 153.6h0M652.5 153.6h0M33.8 161.1h0M41.2 161.1h0M56.2 161.1h0M63.8 161.1h0M71.2 161.1h0M78.8 161.1h0M86.2 161.1h0M93.7 161.1h0M101.2 161.1h0M108.8 161.1h0M116.2 161.1h0M123.7 161.1h0M131.2 161.1h0M138.7 161.1h0M146.2 161.1h0M153.7 161.1h0M161.2 161.1h0M168.7 161.1h0M176.2 161.1h0M183.7 161.1h0M191.2 161.1h0M198.7 161.1h0M206.2 161.1h0M213.7 161.1h0M221.2 161.1h0M228.7 161.1h0M236.2 161.1h0M243.7 161.1h0M251.2 161.1h0M258.7 161.1h0M266.2 161.1h0M273.7 161.1h0M281.2 161.1h0M288.7 161.1h0M296.2 161.1h0M303.7 161.1h0M311.2 161.1h0M318.7 161.1h0M326.2 161.1h0M333.7 161.1h0M341.2 161.1h0M348.8 161.1h0M356.3 161.1h0M363.8 161.1h0M371.3 161.1h0M378.8 161.1h0M386.3 161.1h0M393.8 161.1h0M401.3 161.1h0M408.8 161.1h0M416.3 161.1h0M423.8 161.1h0M431.3 161.1h0M438.8 161.1h0M446.3 161.1h0M453.8 161.1h0M461.3 161.1h0M468.8 161.1h0M476.3 161.1h0M483.8 161.1h0M491.3 161.1h0M498.8 161.1h0M506.3 161.1h0M513.8 161.1h0M521.3 161.1h0M528.8 161.1h0M536.3 161.1h0M543.8 161.1h0M551.3 161.1h0M558.8 161.1h0M566.3 161.1h0M573.8 161.1h0M581.3 161.1h0M45.0 168.6h0M52.5 168.6h0M60.0 168.6h0M67.5 168.6h0M75.0 168.6h0M82.5 168.6h0M90.0 168.6h0M97.5 168.6h0M105.0 168.6h0M112.5 168.6h0M120.0 168.6h0M127.5 168.6h0M135.0 168.6h0M142.5 168.6h0M150.0 168.6h0M157.5 168.6h0M165.0 168.6h0M172.5 168.6h0M180.0 168.6h0M187.5 168.6h0M195.0 168.6h0M202.5 168.6h0M210.0 168.6h0M217.5 168.6h0M225.0 168.6h0M232.5 168.6h0M240.0 168.6h0M247.5 168.6h0M255.0 168.6h0M262.5 168.6h0M270.0 168.6h0M277.5 168.6h0M285.0 168.6h0M292.5 168.6h0M300.0 168.6h0M307.5 168.6h0M315.0 168.6h0M322.5 168.6h0M330.0 168.6h0M337.5 168.6h0M345.0 168.6h0M352.5 168.6h0M360.0 168.6h0M367.5 168.6h0M375.0 168.6h0M382.5 168.6h0M390.0 168.6h0M397.5 168.6h0M405.0 168.6h0M412.5 168.6h0M420.0 168.6h0M427.5 168.6h0M435.0 168.6h0M442.5 168.6h0M450.0 168.6h0M457.5 168.6h0M465.0 168.6h0M472.5 168.6h0M480.0 168.6h0M487.5 168.6h0M495.0 168.6h0M502.5 168.6h0M510.0 168.6h0M517.5 168.6h0M525.0 168.6h0M532.5 168.6h0M540.0 168.6h0M547.5 168.6h0M555.0 168.6h0M562.5 168.6h0M570.0 168.6h0M577.5 168.6h0M592.5 168.6h0M33.8 176.1h0M41.2 176.1h0M48.8 176.1h0M56.2 176.1h0M63.8 176.1h0M71.2 176.1h0M78.8 176.1h0M86.2 176.1h0M93.7 176.1h0M101.2 176.1h0M108.8 176.1h0M116.2 176.1h0M123.7 176.1h0M131.2 176.1h0M138.7 176.1h0M146.2 176.1h0M153.7 176.1h0M161.2 176.1h0M168.7 176.1h0M176.2 176.1h0M183.7 176.1h0M191.2 176.1h0M198.7 176.1h0M206.2 176.1h0M213.7 176.1h0M221.2 176.1h0M228.7 176.1h0M236.2 176.1h0M243.7 176.1h0M251.2 176.1h0M258.7 176.1h0M266.2 176.1h0M273.7 176.1h0M281.2 176.1h0M288.7 176.1h0M296.2 176.1h0M303.7 176.1h0M311.2 176.1h0M318.7 176.1h0M326.2 176.1h0M333.7 176.1h0M341.2 176.1h0M348.8 176.1h0M356.3 176.1h0M363.8 176.1h0M371.3 176.1h0M378.8 176.1h0M386.3 176.1h0M393.8 176.1h0M401.3 176.1h0M408.8 176.1h0M416.3 176.1h0M423.8 176.1h0M431.3 176.1h0M438.8 176.1h0M446.3 176.1h0M453.8 176.1h0M461.3 176.1h0M468.8 176.1h0M476.3 176.1h0M483.8 176.1h0M491.3 176.1h0M498.8 176.1h0M506.3 176.1h0M513.8 176.1h0M521.3 176.1h0M528.8 176.1h0M536.3 176.1h0M543.8 176.1h0M551.3 176.1h0M558.8 176.1h0M566.3 176.1h0M573.8 176.1h0M581.3 176.1h0M37.5 183.6h0M45.0 183.6h0M52.5 183.6h0M60.0 183.6h0M67.5 183.6h0M75.0 183.6h0M82.5 183.6h0M90.0 183.6h0M97.5 183.6h0M105.0 183.6h0M112.5 183.6h0M120.0 183.6h0M127.5 183.6h0M135.0 183.6h0M142.5 183.6h0M150.0 183.6h0M157.5 183.6h0M165.0 183.6h0M172.5 183.6h0M180.0 183.6h0M187.5 183.6h0M195.0 183.6h0M202.5 183.6h0M210.0 183.6h0M217.5 183.6h0M225.0 183.6h0M232.5 183.6h0M240.0 183.6h0M247.5 183.6h0M255.0 183.6h0M262.5 183.6h0M270.0 183.6h0M277.5 183.6h0M285.0 183.6h0M292.5 183.6h0M300.0 183.6h0M307.5 183.6h0M315.0 183.6h0M322.5 183.6h0M330.0 183.6h0M337.5 183.6h0M345.0 183.6h0M352.5 183.6h0M360.0 183.6h0M367.5 183.6h0M375.0 183.6h0M382.5 183.6h0M390.0 183.6h0M397.5 183.6h0M405.0 183.6h0M412.5 183.6h0M420.0 183.6h0M427.5 183.6h0M435.0 183.6h0M442.5 183.6h0M450.0 183.6h0M457.5 183.6h0M465.0 183.6h0M472.5 183.6h0M480.0 183.6h0M487.5 183.6h0M495.0 183.6h0M502.5 183.6h0M510.0 183.6h0M517.5 183.6h0M525.0 183.6h0M532.5 183.6h0M540.0 183.6h0M547.5 183.6h0M555.0 183.6h0M562.5 183.6h0M570.0 183.6h0M577.5 183.6h0M592.5 183.6h0M41.2 191.1h0M48.8 191.1h0M56.2 191.1h0M63.8 191.1h0M71.2 191.1h0M78.8 191.1h0M86.2 191.1h0M93.7 191.1h0M101.2 191.1h0M108.8 191.1h0M116.2 191.1h0M123.7 191.1h0M131.2 191.1h0M138.7 191.1h0M146.2 191.1h0M153.7 191.1h0M168.7 191.1h0M176.2 191.1h0M191.2 191.1h0M198.7 191.1h0M206.2 191.1h0M213.7 191.1h0M221.2 191.1h0M228.7 191.1h0M243.7 191.1h0M251.2 191.1h0M258.7 191.1h0M266.2 191.1h0M273.7 191.1h0M281.2 191.1h0M288.7 191.1h0M296.2 191.1h0M303.7 191.1h0M311.2 191.1h0M318.7 191.1h0M326.2 191.1h0M333.7 191.1h0M341.2 191.1h0M348.8 191.1h0M356.3 191.1h0M363.8 191.1h0M371.3 191.1h0M378.8 191.1h0M386.3 191.1h0M393.8 191.1h0M401.3 191.1h0M408.8 191.1h0M416.3 191.1h0M423.8 191.1h0M431.3 191.1h0M438.8 191.1h0M446.3 191.1h0M453.8 191.1h0M461.3 191.1h0M468.8 191.1h0M476.3 191.1h0M483.8 191.1h0M491.3 191.1h0M498.8 191.1h0M506.3 191.1h0M513.8 191.1h0M521.3 191.1h0M528.8 191.1h0M536.3 191.1h0M543.8 191.1h0M551.3 191.1h0M558.8 191.1h0M566.3 191.1h0M37.5 198.6h0M45.0 198.6h0M52.5 198.6h0M60.0 198.6h0M67.5 198.6h0M75.0 198.6h0M82.5 198.6h0M90.0 198.6h0M105.0 198.6h0M112.5 198.6h0M120.0 198.6h0M127.5 198.6h0M135.0 198.6h0M142.5 198.6h0M150.0 198.6h0M172.5 198.6h0M187.5 198.6h0M195.0 198.6h0M202.5 198.6h0M210.0 198.6h0M217.5 198.6h0M247.5 198.6h0M255.0 198.6h0M262.5 198.6h0M270.0 198.6h0M277.5 198.6h0M285.0 198.6h0M292.5 198.6h0M300.0 198.6h0M307.5 198.6h0M315.0 198.6h0M322.5 198.6h0M330.0 198.6h0M337.5 198.6h0M345.0 198.6h0M352.5 198.6h0M360.0 198.6h0M367.5 198.6h0M375.0 198.6h0M382.5 198.6h0M390.0 198.6h0M397.5 198.6h0M405.0 198.6h0M412.5 198.6h0M420.0 198.6h0M427.5 198.6h0M435.0 198.6h0M442.5 198.6h0M450.0 198.6h0M457.5 198.6h0M465.0 198.6h0M472.5 198.6h0M480.0 198.6h0M487.5 198.6h0M495.0 198.6h0M502.5 198.6h0M510.0 198.6h0M517.5 198.6h0M525.0 198.6h0M532.5 198.6h0M540.0 198.6h0M547.5 198.6h0M555.0 198.6h0M562.5 198.6h0M592.5 198.6h0M41.2 206.1h0M48.8 206.1h0M56.2 206.1h0M63.8 206.1h0M86.2 206.1h0M108.8 206.1h0M116.2 206.1h0M123.7 206.1h0M131.2 206.1h0M138.7 206.1h0M146.2 206.1h0M198.7 206.1h0M206.2 206.1h0M213.7 206.1h0M221.2 206.1h0M243.7 206.1h0M251.2 206.1h0M258.7 206.1h0M266.2 206.1h0M273.7 206.1h0M281.2 206.1h0M288.7 206.1h0M296.2 206.1h0M303.7 206.1h0M311.2 206.1h0M318.7 206.1h0M326.2 206.1h0M333.7 206.1h0M341.2 206.1h0M348.8 206.1h0M356.3 206.1h0M363.8 206.1h0M371.3 206.1h0M378.8 206.1h0M386.3 206.1h0M393.8 206.1h0M401.3 206.1h0M408.8 206.1h0M416.3 206.1h0M423.8 206.1h0M431.3 206.1h0M438.8 206.1h0M446.3 206.1h0M453.8 206.1h0M461.3 206.1h0M468.8 206.1h0M476.3 206.1h0M483.8 206.1h0M491.3 206.1h0M498.8 206.1h0M506.3 206.1h0M513.8 206.1h0M521.3 206.1h0M528.8 206.1h0M536.3 206.1h0M543.8 206.1h0M551.3 206.1h0M558.8 206.1h0M588.8 206.1h0M596.3 206.1h0M15.0 213.6h0M22.5 213.6h0M30.0 213.6h0M37.5 213.6h0M45.0 213.6h0M52.5 213.6h0M90.0 213.6h0M97.5 213.6h0M120.0 213.6h0M127.5 213.6h0M135.0 213.6h0M142.5 213.6h0M150.0 213.6h0M202.5 213.6h0M210.0 213.6h0M217.5 213.6h0M225.0 213.6h0M247.5 213.6h0M255.0 213.6h0M262.5 213.6h0M270.0 213.6h0M277.5 213.6h0M285.0 213.6h0M292.5 213.6h0M300.0 213.6h0M307.5 213.6h0M315.0 213.6h0M322.5 213.6h0M330.0 213.6h0M337.5 213.6h0M345.0 213.6h0M352.5 213.6h0M360.0 213.6h0M367.5 213.6h0M375.0 213.6h0M382.5 213.6h0M390.0 213.6h0M397.5 213.6h0M405.0 213.6h0M412.5 213.6h0M420.0 213.6h0M427.5 213.6h0M435.0 213.6h0M442.5 213.6h0M450.0 213.6h0M457.5 213.6h0M465.0 213.6h0M472.5 213.6h0M480.0 213.6h0M487.5 213.6h0M495.0 213.6h0M502.5 213.6h0M510.0 213.6h0M517.5 213.6h0M525.0 213.6h0M532.5 213.6h0M540.0 213.6h0M592.5 213.6h0M11.2 221.1h0M18.8 221.1h0M26.2 221.1h0M33.8 221.1h0M41.2 221.1h0M48.8 221.1h0M101.2 221.1h0M108.8 221.1h0M123.7 221.1h0M131.2 221.1h0M138.7 221.1h0M146.2 221.1h0M161.2 221.1h0M168.7 221.1h0M176.2 221.1h0M183.7 221.1h0M198.7 221.1h0M206.2 221.1h0M213.7 221.1h0M221.2 221.1h0M228.7 221.1h0M251.2 221.1h0M258.7 221.1h0M266.2 221.1h0M273.7 221.1h0M281.2 221.1h0M288.7 221.1h0M296.2 221.1h0M303.7 221.1h0M311.2 221.1h0M318.7 221.1h0M326.2 221.1h0M333.7 221.1h0M341.2 221.1h0M348.8 221.1h0M356.3 221.1h0M363.8 221.1h0M371.3 221.1h0M378.8 221.1h0M386.3 221.1h0M393.8 221.1h0M401.3 221.1h0M408.8 221.1h0M416.3 221.1h0M423.8 221.1h0M431.3 221.1h0M438.8 221.1h0M446.3 221.1h0M453.8 221.1h0M461.3 221.1h0M468.8 221.1h0M476.3 221.1h0M483.8 221.1h0M491.3 221.1h0M498.8 221.1h0M506.3 221.1h0M513.8 221.1h0M521.3 221.1h0M528.8 221.1h0M536.3 221.1h0M15.0 228.6h0M22.5 228.6h0M30.0 228.6h0M37.5 228.6h0M75.0 228.6h0M105.0 228.6h0M127.5 228.6h0M150.0 228.6h0M157.5 228.6h0M165.0 228.6h0M172.5 228.6h0M180.0 228.6h0M187.5 228.6h0M195.0 228.6h0M202.5 228.6h0M210.0 228.6h0M217.5 228.6h0M225.0 228.6h0M232.5 228.6h0M255.0 228.6h0M262.5 228.6h0M270.0 228.6h0M277.5 228.6h0M285.0 228.6h0M292.5 228.6h0M300.0 228.6h0M307.5 228.6h0M315.0 228.6h0M322.5 228.6h0M330.0 228.6h0M337.5 228.6h0M345.0 228.6h0M352.5 228.6h0M360.0 228.6h0M367.5 228.6h0M375.0 228.6h0M382.5 228.6h0M390.0 228.6h0M397.5 228.6h0M405.0 228.6h0M412.5 228.6h0M420.0 228.6h0M427.5 228.6h0M435.0 228.6h0M442.5 228.6h0M450.0 228.6h0M457.5 228.6h0M465.0 228.6h0M472.5 228.6h0M480.0 228.6h0M487.5 228.6h0M495.0 228.6h0M502.5 228.6h0M517.5 228.6h0M525.0 228.6h0M532.5 228.6h0M540.0 228.6h0M585.0 228.6h0M11.2 236.1h0M18.8 236.1h0M26.2 236.1h0M33.8 236.1h0M123.7 236.1h0M131.2 236.1h0M146.2 236.1h0M153.7 236.1h0M161.2 236.1h0M168.7 236.1h0M176.2 236.1h0M183.7 236.1h0M191.2 236.1h0M198.7 236.1h0M206.2 236.1h0M213.7 236.1h0M221.2 236.1h0M228.7 236.1h0M251.2 236.1h0M258.7 236.1h0M266.2 236.1h0M273.7 236.1h0M281.2 236.1h0M288.7 236.1h0M296.2 236.1h0M303.7 236.1h0M311.2 236.1h0M318.7 236.1h0M326.2 236.1h0M333.7 236.1h0M341.2 236.1h0M348.8 236.1h0M356.3 236.1h0M363.8 236.1h0M371.3 236.1h0M378.8 236.1h0M386.3 236.1h0M393.8 236.1h0M401.3 236.1h0M408.8 236.1h0M416.3 236.1h0M423.8 236.1h0M431.3 236.1h0M438.8 236.1h0M446.3 236.1h0M453.8 236.1h0M461.3 236.1h0M468.8 236.1h0M476.3 236.1h0M483.8 236.1h0M491.3 236.1h0M528.8 236.1h0M536.3 236.1h0M15.0 243.6h0M22.5 243.6h0M30.0 243.6h0M37.5 243.6h0M97.5 243.6h0M127.5 243.6h0M150.0 243.6h0M157.5 243.6h0M165.0 243.6h0M172.5 243.6h0M180.0 243.6h0M187.5 243.6h0M195.0 243.6h0M202.5 243.6h0M210.0 243.6h0M217.5 243.6h0M225.0 243.6h0M255.0 243.6h0M262.5 243.6h0M270.0 243.6h0M277.5 243.6h0M285.0 243.6h0M292.5 243.6h0M300.0 243.6h0M307.5 243.6h0M315.0 243.6h0M322.5 243.6h0M330.0 243.6h0M337.5 243.6h0M345.0 243.6h0M352.5 243.6h0M360.0 243.6h0M367.5 243.6h0M375.0 243.6h0M382.5 243.6h0M390.0 243.6h0M397.5 243.6h0M405.0 243.6h0M412.5 243.6h0M420.0 243.6h0M427.5 243.6h0M435.0 243.6h0M442.5 243.6h0M450.0 243.6h0M457.5 243.6h0M465.0 243.6h0M472.5 243.6h0M480.0 243.6h0M487.5 243.6h0M495.0 243.6h0M532.5 243.6h0M540.0 243.6h0M577.5 243.6h0M585.0 243.6h0M168.7 251.1h0M183.7 251.1h0M191.2 251.1h0M198.7 251.1h0M206.2 251.1h0M213.7 251.1h0M221.2 251.1h0M228.7 251.1h0M236.2 251.1h0M243.7 251.1h0M251.2 251.1h0M258.7 251.1h0M266.2 251.1h0M273.7 251.1h0M281.2 251.1h0M288.7 251.1h0M296.2 251.1h0M303.7 251.1h0M311.2 251.1h0M318.7 251.1h0M326.2 251.1h0M333.7 251.1h0M341.2 251.1h0M348.8 251.1h0M356.3 251.1h0M363.8 251.1h0M371.3 251.1h0M378.8 251.1h0M386.3 251.1h0M393.8 251.1h0M401.3 251.1h0M408.8 251.1h0M416.3 251.1h0M423.8 251.1h0M431.3 251.1h0M438.8 251.1h0M446.3 251.1h0M453.8 251.1h0M461.3 251.1h0M468.8 251.1h0M476.3 251.1h0M483.8 251.1h0M491.3 251.1h0M498.8 251.1h0M506.3 251.1h0M536.3 251.1h0M566.3 251.1h0M573.8 251.1h0M581.3 251.1h0M187.5 258.6h0M195.0 258.6h0M202.5 258.6h0M210.0 258.6h0M217.5 258.6h0M225.0 258.6h0M232.5 258.6h0M240.0 258.6h0M247.5 258.6h0M255.0 258.6h0M262.5 258.6h0M270.0 258.6h0M277.5 258.6h0M285.0 258.6h0M292.5 258.6h0M300.0 258.6h0M307.5 258.6h0M315.0 258.6h0M322.5 258.6h0M330.0 258.6h0M337.5 258.6h0M345.0 258.6h0M352.5 258.6h0M360.0 258.6h0M367.5 258.6h0M375.0 258.6h0M382.5 258.6h0M390.0 258.6h0M397.5 258.6h0M405.0 258.6h0M412.5 258.6h0M420.0 258.6h0M427.5 258.6h0M435.0 258.6h0M442.5 258.6h0M450.0 258.6h0M457.5 258.6h0M465.0 258.6h0M472.5 258.6h0M480.0 258.6h0M487.5 258.6h0M495.0 258.6h0M502.5 258.6h0M532.5 258.6h0M555.0 258.6h0M562.5 258.6h0M570.0 258.6h0M183.7 266.1h0M191.2 266.1h0M198.7 266.1h0M206.2 266.1h0M213.7 266.1h0M221.2 266.1h0M228.7 266.1h0M236.2 266.1h0M243.7 266.1h0M251.2 266.1h0M258.7 266.1h0M266.2 266.1h0M273.7 266.1h0M281.2 266.1h0M288.7 266.1h0M296.2 266.1h0M303.7 266.1h0M311.2 266.1h0M318.7 266.1h0M326.2 266.1h0M333.7 266.1h0M341.2 266.1h0M348.8 266.1h0M356.3 266.1h0M363.8 266.1h0M371.3 266.1h0M378.8 266.1h0M386.3 266.1h0M393.8 266.1h0M401.3 266.1h0M408.8 266.1h0M416.3 266.1h0M423.8 266.1h0M431.3 266.1h0M438.8 266.1h0M446.3 266.1h0M453.8 266.1h0M461.3 266.1h0M468.8 266.1h0M476.3 266.1h0M483.8 266.1h0M491.3 266.1h0M498.8 266.1h0M180.0 273.6h0M187.5 273.6h0M195.0 273.6h0M202.5 273.6h0M210.0 273.6h0M217.5 273.6h0M225.0 273.6h0M232.5 273.6h0M240.0 273.6h0M247.5 273.6h0M255.0 273.6h0M262.5 273.6h0M270.0 273.6h0M277.5 273.6h0M285.0 273.6h0M292.5 273.6h0M300.0 273.6h0M307.5 273.6h0M315.0 273.6h0M322.5 273.6h0M330.0 273.6h0M337.5 273.6h0M345.0 273.6h0M352.5 273.6h0M360.0 273.6h0M367.5 273.6h0M375.0 273.6h0M382.5 273.6h0M390.0 273.6h0M397.5 273.6h0M405.0 273.6h0M412.5 273.6h0M420.0 273.6h0M427.5 273.6h0M435.0 273.6h0M442.5 273.6h0M450.0 273.6h0M457.5 273.6h0M465.0 273.6h0M472.5 273.6h0M480.0 273.6h0M487.5 273.6h0M495.0 273.6h0M502.5 273.6h0M168.7 281.1h0M176.2 281.1h0M183.7 281.1h0M191.2 281.1h0M198.7 281.1h0M206.2 281.1h0M213.7 281.1h0M221.2 281.1h0M228.7 281.1h0M236.2 281.1h0M243.7 281.1h0M251.2 281.1h0M258.7 281.1h0M266.2 281.1h0M273.7 281.1h0M281.2 281.1h0M288.7 281.1h0M296.2 281.1h0M303.7 281.1h0M311.2 281.1h0M318.7 281.1h0M326.2 281.1h0M333.7 281.1h0M341.2 281.1h0M348.8 281.1h0M356.3 281.1h0M363.8 281.1h0M371.3 281.1h0M378.8 281.1h0M386.3 281.1h0M393.8 281.1h0M401.3 281.1h0M408.8 281.1h0M416.3 281.1h0M423.8 281.1h0M431.3 281.1h0M438.8 281.1h0M446.3 281.1h0M453.8 281.1h0M461.3 281.1h0M468.8 281.1h0M476.3 281.1h0M483.8 281.1h0M491.3 281.1h0M498.8 281.1h0M506.3 281.1h0M172.5 288.6h0M180.0 288.6h0M187.5 288.6h0M195.0 288.6h0M202.5 288.6h0M210.0 288.6h0M217.5 288.6h0M225.0 288.6h0M232.5 288.6h0M240.0 288.6h0M247.5 288.6h0M255.0 288.6h0M262.5 288.6h0M270.0 288.6h0M277.5 288.6h0M285.0 288.6h0M292.5 288.6h0M300.0 288.6h0M307.5 288.6h0M315.0 288.6h0M322.5 288.6h0M330.0 288.6h0M337.5 288.6h0M345.0 288.6h0M352.5 288.6h0M360.0 288.6h0M367.5 288.6h0M375.0 288.6h0M382.5 288.6h0M390.0 288.6h0M397.5 288.6h0M405.0 288.6h0M412.5 288.6h0M420.0 288.6h0M427.5 288.6h0M435.0 288.6h0M442.5 288.6h0M450.0 288.6h0M457.5 288.6h0M465.0 288.6h0M472.5 288.6h0M480.0 288.6h0M487.5 288.6h0M495.0 288.6h0M502.5 288.6h0M510.0 288.6h0M183.7 296.1h0M191.2 296.1h0M198.7 296.1h0M206.2 296.1h0M213.7 296.1h0M221.2 296.1h0M228.7 296.1h0M236.2 296.1h0M243.7 296.1h0M251.2 296.1h0M258.7 296.1h0M266.2 296.1h0M273.7 296.1h0M281.2 296.1h0M288.7 296.1h0M296.2 296.1h0M303.7 296.1h0M311.2 296.1h0M318.7 296.1h0M326.2 296.1h0M333.7 296.1h0M341.2 296.1h0M348.8 296.1h0M356.3 296.1h0M363.8 296.1h0M371.3 296.1h0M378.8 296.1h0M386.3 296.1h0M393.8 296.1h0M401.3 296.1h0M408.8 296.1h0M416.3 296.1h0M423.8 296.1h0M431.3 296.1h0M438.8 296.1h0M446.3 296.1h0M453.8 296.1h0M461.3 296.1h0M468.8 296.1h0M476.3 296.1h0M483.8 296.1h0M491.3 296.1h0M498.8 296.1h0M506.3 296.1h0M180.0 303.6h0M187.5 303.6h0M195.0 303.6h0M202.5 303.6h0M210.0 303.6h0M217.5 303.6h0M225.0 303.6h0M232.5 303.6h0M255.0 303.6h0M262.5 303.6h0M270.0 303.6h0M277.5 303.6h0M285.0 303.6h0M292.5 303.6h0M300.0 303.6h0M307.5 303.6h0M315.0 303.6h0M322.5 303.6h0M330.0 303.6h0M337.5 303.6h0M345.0 303.6h0M352.5 303.6h0M360.0 303.6h0M367.5 303.6h0M375.0 303.6h0M382.5 303.6h0M390.0 303.6h0M397.5 303.6h0M405.0 303.6h0M412.5 303.6h0M420.0 303.6h0M427.5 303.6h0M435.0 303.6h0M442.5 303.6h0M450.0 303.6h0M457.5 303.6h0M465.0 303.6h0M472.5 303.6h0M480.0 303.6h0M487.5 303.6h0M495.0 303.6h0M502.5 303.6h0M183.7 311.1h0M191.2 311.1h0M198.7 311.1h0M206.2 311.1h0M213.7 311.1h0M221.2 311.1h0M228.7 311.1h0M236.2 311.1h0M266.2 311.1h0M273.7 311.1h0M281.2 311.1h0M288.7 311.1h0M296.2 311.1h0M303.7 311.1h0M311.2 311.1h0M318.7 311.1h0M326.2 311.1h0M333.7 311.1h0M341.2 311.1h0M348.8 311.1h0M356.3 311.1h0M363.8 311.1h0M371.3 311.1h0M378.8 311.1h0M386.3 311.1h0M393.8 311.1h0M401.3 311.1h0M408.8 311.1h0M416.3 311.1h0M423.8 311.1h0M431.3 311.1h0M438.8 311.1h0M446.3 311.1h0M453.8 311.1h0M461.3 311.1h0M468.8 311.1h0M476.3 311.1h0M483.8 311.1h0M491.3 311.1h0M498.8 311.1h0M187.5 318.6h0M195.0 318.6h0M202.5 318.6h0M210.0 318.6h0M217.5 318.6h0M225.0 318.6h0M232.5 318.6h0M240.0 318.6h0M247.5 318.6h0M255.0 318.6h0M300.0 318.6h0M307.5 318.6h0M315.0 318.6h0M322.5 318.6h0M330.0 318.6h0M337.5 318.6h0M345.0 318.6h0M352.5 318.6h0M360.0 318.6h0M367.5 318.6h0M375.0 318.6h0M382.5 318.6h0M390.0 318.6h0M397.5 318.6h0M405.0 318.6h0M412.5 318.6h0M420.0 318.6h0M427.5 318.6h0M435.0 318.6h0M442.5 318.6h0M450.0 318.6h0M457.5 318.6h0M465.0 318.6h0M472.5 318.6h0M480.0 318.6h0M487.5 318.6h0M495.0 318.6h0M191.2 326.1h0M198.7 326.1h0M206.2 326.1h0M213.7 326.1h0M221.2 326.1h0M228.7 326.1h0M236.2 326.1h0M243.7 326.1h0M251.2 326.1h0M258.7 326.1h0M311.2 326.1h0M318.7 326.1h0M326.2 326.1h0M333.7 326.1h0M341.2 326.1h0M348.8 326.1h0M356.3 326.1h0M363.8 326.1h0M371.3 326.1h0M378.8 326.1h0M386.3 326.1h0M393.8 326.1h0M401.3 326.1h0M408.8 326.1h0M416.3 326.1h0M423.8 326.1h0M431.3 326.1h0M438.8 326.1h0M446.3 326.1h0M453.8 326.1h0M461.3 326.1h0M468.8 326.1h0M476.3 326.1h0M483.8 326.1h0M491.3 326.1h0M195.0 333.6h0M202.5 333.6h0M210.0 333.6h0M217.5 333.6h0M225.0 333.6h0M232.5 333.6h0M240.0 333.6h0M247.5 333.6h0M255.0 333.6h0M262.5 333.6h0M270.0 333.6h0M315.0 333.6h0M322.5 333.6h0M330.0 333.6h0M337.5 333.6h0M345.0 333.6h0M352.5 333.6h0M360.0 333.6h0M367.5 333.6h0M375.0 333.6h0M382.5 333.6h0M390.0 333.6h0M397.5 333.6h0M405.0 333.6h0M412.5 333.6h0M420.0 333.6h0M427.5 333.6h0M435.0 333.6h0M442.5 333.6h0M450.0 333.6h0M457.5 333.6h0M465.0 333.6h0M472.5 333.6h0M480.0 333.6h0M198.7 341.1h0M206.2 341.1h0M213.7 341.1h0M221.2 341.1h0M228.7 341.1h0M236.2 341.1h0M243.7 341.1h0M251.2 341.1h0M258.7 341.1h0M266.2 341.1h0M318.7 341.1h0M326.2 341.1h0M333.7 341.1h0M341.2 341.1h0M348.8 341.1h0M356.3 341.1h0M363.8 341.1h0M371.3 341.1h0M378.8 341.1h0M401.3 341.1h0M408.8 341.1h0M416.3 341.1h0M423.8 341.1h0M431.3 341.1h0M438.8 341.1h0M446.3 341.1h0M453.8 341.1h0M468.8 341.1h0M202.5 348.6h0M210.0 348.6h0M217.5 348.6h0M225.0 348.6h0M232.5 348.6h0M240.0 348.6h0M247.5 348.6h0M255.0 348.6h0M262.5 348.6h0M330.0 348.6h0M337.5 348.6h0M345.0 348.6h0M352.5 348.6h0M360.0 348.6h0M367.5 348.6h0M375.0 348.6h0M405.0 348.6h0M412.5 348.6h0M420.0 348.6h0M427.5 348.6h0M435.0 348.6h0M442.5 348.6h0M450.0 348.6h0M206.2 356.1h0M213.7 356.1h0M221.2 356.1h0M228.7 356.1h0M236.2 356.1h0M243.7 356.1h0M251.2 356.1h0M258.7 356.1h0M326.2 356.1h0M333.7 356.1h0M341.2 356.1h0M348.8 356.1h0M356.3 356.1h0M363.8 356.1h0M408.8 356.1h0M416.3 356.1h0M423.8 356.1h0M431.3 356.1h0M438.8 356.1h0M446.3 356.1h0M453.8 356.1h0M210.0 363.6h0M217.5 363.6h0M225.0 363.6h0M232.5 363.6h0M240.0 363.6h0M247.5 363.6h0M255.0 363.6h0M330.0 363.6h0M337.5 363.6h0M345.0 363.6h0M352.5 363.6h0M360.0 363.6h0M405.0 363.6h0M412.5 363.6h0M420.0 363.6h0M427.5 363.6h0M435.0 363.6h0M442.5 363.6h0M450.0 363.6h0M457.5 363.6h0M213.7 371.1h0M221.2 371.1h0M228.7 371.1h0M236.2 371.1h0M243.7 371.1h0M326.2 371.1h0M333.7 371.1h0M341.2 371.1h0M348.8 371.1h0M408.8 371.1h0M423.8 371.1h0M431.3 371.1h0M438.8 371.1h0M446.3 371.1h0M453.8 371.1h0M210.0 378.6h0M217.5 378.6h0M225.0 378.6h0M232.5 378.6h0M330.0 378.6h0M337.5 378.6h0M345.0 378.6h0M427.5 378.6h0M435.0 378.6h0M442.5 378.6h0M450.0 378.6h0M457.5 378.6h0M213.7 386.1h0M221.2 386.1h0M333.7 386.1h0M341.2 386.1h0M348.8 386.1h0M423.8 386.1h0M431.3 386.1h0M438.8 386.1h0M446.3 386.1h0M453.8 386.1h0M461.3 386.1h0M337.5 393.6h0M345.0 393.6h0M427.5 393.6h0M442.5 393.6h0M450.0 393.6h0M457.5 393.6h0M341.2 401.1h0M348.8 401.1h0M423.8 401.1h0M446.3 401.1h0M453.8 401.1h0"/><circle class="mp-g" cx="187.6" cy="133.5" r="12.0"/><circle class="mp-c" cx="187.6" cy="133.5" r="3.4"/><circle class="mp-g" cx="159.4" cy="108.4" r="10.2"/><circle class="mp-c" cx="159.4" cy="108.4" r="3.0"/><circle class="mp-g" cx="166.1" cy="139.3" r="8.5"/><circle class="mp-c" cx="166.1" cy="139.3" r="2.5"/><circle class="mp-g" cx="183.6" cy="164.4" r="8.5"/><circle class="mp-c" cx="183.6" cy="164.4" r="2.5"/><circle class="mp-g" cx="193.7" cy="158.0" r="8.5"/><circle class="mp-c" cx="193.7" cy="158.0" r="2.5"/><circle class="mp-g" cx="182.1" cy="157.6" r="8.5"/><circle class="mp-c" cx="182.1" cy="157.6" r="2.5"/><circle class="mp-g" cx="234.1" cy="116.4" r="8.5"/><circle class="mp-c" cx="234.1" cy="116.4" r="2.5"/><circle class="mp-g" cx="188.2" cy="199.7" r="8.5"/><circle class="mp-c" cx="188.2" cy="199.7" r="2.5"/><circle class="mp-g" cx="444.8" cy="154.3" r="8.5"/><circle class="mp-c" cx="444.8" cy="154.3" r="2.5"/><circle class="mp-g" cx="443.2" cy="152.8" r="8.5"/><circle class="mp-c" cx="443.2" cy="152.8" r="2.5"/><circle class="mp-g" cx="442.3" cy="151.5" r="8.5"/><circle class="mp-c" cx="442.3" cy="151.5" r="2.5"/><circle class="mp-g" cx="434.5" cy="131.1" r="8.5"/><circle class="mp-c" cx="434.5" cy="131.1" r="2.5"/><circle class="mp-g" cx="383.5" cy="51.0" r="8.5"/><circle class="mp-c" cx="383.5" cy="51.0" r="2.5"/><circle class="mp-g" cx="320.8" cy="98.3" r="8.5"/><circle class="mp-c" cx="320.8" cy="98.3" r="2.5"/><circle class="mp-g" cx="326.8" cy="98.4" r="8.5"/><circle class="mp-c" cx="326.8" cy="98.4" r="2.5"/><circle class="mp-g" cx="342.5" cy="78.5" r="8.5"/><circle class="mp-c" cx="342.5" cy="78.5" r="2.5"/><circle class="mp-g" cx="186.7" cy="139.6" r="8.5"/><circle class="mp-c" cx="186.7" cy="139.6" r="2.5"/><circle class="mp-g" cx="187.0" cy="137.1" r="8.5"/><circle class="mp-c" cx="187.0" cy="137.1" r="2.5"/><circle class="mp-g" cx="186.0" cy="132.1" r="8.5"/><circle class="mp-c" cx="186.0" cy="132.1" r="2.5"/><text class="mp-l" x="196.6" y="126.5" text-anchor="start">Москва</text><text class="mp-l" x="167.4" y="100.4" text-anchor="start">Санкт-Петербург</text><text class="mp-l" x="392.5" y="55.0" text-anchor="start">Норильск</text><text class="mp-l" x="453.8" y="166.3" text-anchor="start">Иркутск</text><text class="mp-l" x="197.2" y="204.7" text-anchor="start">Новороссийск</text><circle class="mp-r" cx="123.5" cy="154.8" r="5.5"/><circle class="mp-rc" cx="123.5" cy="154.8" r="1.8"/><path class="mp-ln" d="M123.5 148.8L123.5 22H34.0"/><text class="mp-l mp-f" x="30.0" y="16" text-anchor="start">Польша</text><circle class="mp-r" cx="140.0" cy="139.8" r="5.5"/><circle class="mp-rc" cx="140.0" cy="139.8" r="1.8"/><path class="mp-ln" d="M140.0 133.8L140.0 22H90.0"/><text class="mp-l mp-f" x="86.0" y="16" text-anchor="start">Литва</text><circle class="mp-r" cx="148.8" cy="144.6" r="5.5"/><circle class="mp-rc" cx="148.8" cy="144.6" r="1.8"/><path class="mp-ln" d="M148.8 138.6L148.8 22H154.0"/><text class="mp-l mp-f" x="150.0" y="16" text-anchor="start">Беларусь</text><circle class="mp-r" cx="317.9" cy="160.8" r="5.5"/><circle class="mp-rc" cx="317.9" cy="160.8" r="1.8"/><text class="mp-l mp-f" x="317.9" y="180.8" text-anchor="middle">Казахстан</text><circle class="mp-r" cx="255.8" cy="316.8" r="5.5"/><circle class="mp-rc" cx="255.8" cy="316.8" r="1.8"/><text class="mp-l mp-f" x="265.8" y="320.8" text-anchor="start">ОАЭ</text></svg>
@@ -946,15 +959,15 @@ details[open] .pm::after{transform:rotate(0)}
       <div class="vs-h g12" role="row"><p role="columnheader">Обычно</p><p role="columnheader">С&nbsp;нами</p></div>
       <div class="vs-r g12" role="row">
         <p class="old" role="cell"><span class="vs-l" aria-hidden="true">Обычно</span>Платите с&nbsp;первого дня</p>
-        <p class="new" role="cell"><span class="vs-l" aria-hidden="true">С&nbsp;нами</span>Платите только процент с&nbsp;прироста выручки</p>
+        <p class="new" role="cell"><span class="vs-l" aria-hidden="true">С&nbsp;нами</span>Платите <em>только процент с&nbsp;прироста</em> выручки</p>
       </div>
       <div class="vs-r g12" role="row">
         <p class="old" role="cell"><span class="vs-l" aria-hidden="true">Обычно</span>В&nbsp;отчёте&nbsp;— клики и&nbsp;охваты</p>
-        <p class="new" role="cell"><span class="vs-l" aria-hidden="true">С&nbsp;нами</span>В&nbsp;договоре&nbsp;— цель по&nbsp;выручке</p>
+        <p class="new" role="cell"><span class="vs-l" aria-hidden="true">С&nbsp;нами</span>В&nbsp;договоре&nbsp;— <em>цель по&nbsp;выручке</em></p>
       </div>
       <div class="vs-r g12" role="row">
         <p class="old" role="cell"><span class="vs-l" aria-hidden="true">Обычно</span>Не&nbsp;вышло&nbsp;— деньги остаются у&nbsp;подрядчика</p>
-        <p class="new" role="cell"><span class="vs-l" aria-hidden="true">С&nbsp;нами</span>Нет прироста&nbsp;— за&nbsp;работу&nbsp;0&nbsp;₽</p>
+        <p class="new" role="cell"><span class="vs-l" aria-hidden="true">С&nbsp;нами</span>Нет прироста&nbsp;— за&nbsp;работу <em>0&nbsp;₽</em></p>
       </div>
     </div>
     <div class="sum-row g12">
@@ -985,7 +998,6 @@ details[open] .pm::after{transform:rotate(0)}
           <li>Оценка операционной работы</li>
           <li>Дорожная карта по каналам</li>
         </ul>
-        <p class="st-note">Без налаженной операционной работы выручка не вырастет или рост будет недолгим.</p>
       </li>
       <li class="st" style="--i:1;--y0:16px;--y1:16px">
         <span class="seg flat" aria-hidden="true"><i></i></span>
@@ -1045,7 +1057,7 @@ details[open] .pm::after{transform:rotate(0)}
       <h2 class="h2" id="t-ruk">Ведём гостя от&nbsp;первой рекламы <em>до&nbsp;третьего заказа</em></h2>
     </header>
     <ol class="path">
-      <li class="g12"><span class="k" aria-hidden="true">01</span><b>Увидел</b><span class="chips"><span class="chip">Яндекс Директ</span><span class="chip">Реклама ВКонтакте</span><span class="chip">Яндекс Карты и&nbsp;2ГИС</span><span class="chip">Блогеры</span></span></li>
+      <li class="g12"><span class="k" aria-hidden="true">01</span><b>Увидел</b><span class="chips"><span class="chip">Яндекс Директ</span><span class="chip">Реклама ВКонтакте</span><span class="chip">Яндекс Карты и&nbsp;2ГИС</span><span class="chip">Блогеры</span><span class="chip more">Ещё 6+ каналов</span></span></li>
       <li class="g12"><span class="k" aria-hidden="true">02</span><b>Выбрал</b><span class="chips"><span class="chip">Рейтинг и&nbsp;ответы на&nbsp;отзывы</span><span class="chip">Карточки на&nbsp;картах</span><span class="chip">Карточки в&nbsp;Яндекс Еде и&nbsp;Купере</span></span></li>
       <li class="g12"><span class="k" aria-hidden="true">03</span><b>Заказал</b><span class="chips"><span class="chip">Ваш сайт и&nbsp;приложение</span><span class="chip">Сеты и&nbsp;акции, посчитанные через маржу</span></span></li>
       <li class="g12"><span class="k" aria-hidden="true">04</span><b>Вернулся</b><span class="chips"><span class="chip">Рассылки по&nbsp;базе</span><span class="chip">Группа ВК</span><span class="chip">Сценарий «после первого заказа»</span><span class="chip">Сценарий «не&nbsp;заказывал 30&nbsp;дней»</span></span></li>
@@ -1063,16 +1075,15 @@ details[open] .pm::after{transform:rotate(0)}
       <p class="label">Опыт</p>
       <h2 class="h2" id="t-op">Почему мы не&nbsp;боимся <em>отвечать за&nbsp;выручку</em></h2>
     </header>
-    <div class="big g12" data-scrub data-from="1" data-to="0.3">
-      <p class="big-n" aria-hidden="true">130<span>+</span></p>
+    <div class="big g12">
       <ul class="stats">
-        <li><p class="s-lead">130+ ресторанов доставки суши и&nbsp;роллов ведём по&nbsp;всей России, включая Москву</p></li>
+        <li><p class="s-n">130<span class="s-pl">+</span></p><p class="s-t">ресторанов доставки суши и&nbsp;роллов ведём по&nbsp;всей России, включая Москву</p></li>
         <li><p class="s-n"><span class="ph">42</span></p><p class="s-t">города&nbsp;— от&nbsp;<span class="ph">Тобольска</span> до&nbsp;столицы</p></li>
         <li><p class="s-n"><span class="ph">9&nbsp;лет</span></p><p class="s-t">в&nbsp;маркетинге доставки суши</p></li>
       </ul>
     </div>
     <div class="because g12">
-      <p class="lit" data-scrub data-from="0.9" data-to="0.45">Берём только доставки суши и&nbsp;роллов. Поэтому знаем по&nbsp;цифрам 130+ ресторанов, какие каналы где работают, сколько на&nbsp;них тратить и&nbsp;в&nbsp;каком порядке запускать. Работали и&nbsp;за&nbsp;пределами России: Беларусь, Казахстан, Литва, Польша, ОАЭ.</p>
+      <p class="lit" data-scrub data-from="0.9" data-to="0.45">Берём только доставки суши и&nbsp;роллов. Поэтому знаем по&nbsp;цифрам, какие каналы где работают и&nbsp;сколько на&nbsp;них тратить.</p>
     </div>
   </div>
 </section>
@@ -1085,6 +1096,7 @@ details[open] .pm::after{transform:rotate(0)}
       <h2 class="h2" id="t-team">Вашу доставку ведёт команда, <em>а&nbsp;не&nbsp;один маркетолог</em></h2>
     </header>
     <div class="team">
+      <div class="tm-rail" id="tm-rail">
       <div class="tm-duo">
         <article class="tm-p tm-lead">
           <div class="tm-plate">
@@ -1162,6 +1174,8 @@ details[open] .pm::after{transform:rotate(0)}
             </div>
           </article>
       </div>
+      </div>
+      <div class="tm-dots" id="tm-dots" aria-hidden="true"></div>
       <p class="tm-foot">Опыт команды&nbsp;— маркетинг 130+ ресторанов доставки в&nbsp;разных городах. За&nbsp;каждым&nbsp;— свои специалисты: реклама, SMM, рассылки, репутация, дизайн.</p>
     </div>
   </div>
@@ -1192,7 +1206,15 @@ details[open] .pm::after{transform:rotate(0)}
           <button type="button" class="cs-ar" data-dir="1" aria-label="Следующий город"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
           <p class="cs-cnt" aria-hidden="true"><b data-x="cn">01</b> / 10</p>
         </div>
+      <div class="cs-slide" id="cs-slide">
       <div class="cs-l">
+        <div class="cs-head">
+          <p class="cs-city" data-x="hc">Санкт-Петербург</p>
+          <div class="cs-hb">
+            <button type="button" class="cs-ar" data-dir="-1" aria-label="Предыдущий кейс"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <button type="button" class="cs-ar" data-dir="1" aria-label="Следующий кейс"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          </div>
+        </div>
         <div class="cs-hero">
           <p class="cs-up"><span data-x="up">+58%</span></p>
           <p class="cs-cap">Прирост выручки к&nbsp;июлю–октябрю 2025<b data-x="ft">2,84 → 4,48&nbsp;млн&nbsp;₽ в&nbsp;месяц</b></p>
@@ -1251,6 +1273,7 @@ details[open] .pm::after{transform:rotate(0)}
             </div>
           </div>
         </div>
+      </div>
       </div>
     </div>
     <div class="cs-foot g12">
@@ -1402,9 +1425,6 @@ details[open] .pm::after{transform:rotate(0)}
 
 <!-- ЭКРАН 10 — ИТОГ И ФОРМА -->
 <section class="sec sheet night fin last" id="audit" aria-labelledby="t-end" data-scrub data-from="1" data-to="0.2">
-  <div class="mq" aria-hidden="true">
-    <div class="mq-t"><span>Нет прироста — за&nbsp;работу <b>0&nbsp;₽</b> · Нет прироста — за&nbsp;работу <b>0&nbsp;₽</b> ·</span><span>Нет прироста — за&nbsp;работу <b>0&nbsp;₽</b> · Нет прироста — за&nbsp;работу <b>0&nbsp;₽</b> ·</span></div>
-  </div>
   <div class="heat" aria-hidden="true"><i class="a"></i><i class="b"></i></div>
   <div class="wrap fin-in g12">
     <div class="fin-l">
@@ -1624,6 +1644,7 @@ function csCase(n){
   csQ('data-x','cn').textContent=nn;
   csList.scrollTo({left:li.offsetLeft-(csList.clientWidth-li.offsetWidth)/2,behavior:reduce?'auto':'smooth'});
   csQ('data-x','tt').textContent=csBtns[n].getAttribute('data-t');
+  csQ('data-x','hc').textContent=$('.cs-ct',csBtns[n]).textContent;
   csHide();
 }
 /* состояние кейса в точке s: 0 — до старта, 3 — третий месяц; между точками значения идут плавно */
@@ -1678,7 +1699,7 @@ function csShow(i){
   csTip.style.top=ph*(1-v/csTop*f)+'px';
   csTip.classList.add('on');
 }
-function csPoint(e){var r=csPlot.getBoundingClientRect();csShow(Math.floor((e.clientX-r.left)/r.width*16))}
+function csPoint(e){if(csDrag&&csDrag.on)return;var r=csPlot.getBoundingClientRect();csShow(Math.floor((e.clientX-r.left)/r.width*16))}
 csPlot.addEventListener('pointermove',csPoint);
 csPlot.addEventListener('pointerdown',csPoint);
 csPlot.addEventListener('pointerleave',csHide);
@@ -1724,9 +1745,47 @@ csBtns.forEach(function(b,i){b.addEventListener('click',function(){
   if(to>0&&!reduce){csSet(0);csGo(to,900)}else csSet(to);
 })});
 /* стрелки ленты: следующий и предыдущий город по кругу */
-$$('.cs-ar',cs).forEach(function(a){a.addEventListener('click',function(){
-  csBtns[(csN+(+a.getAttribute('data-dir'))+csBtns.length)%csBtns.length].click();
-})});
+$$('.cs-ar',cs).forEach(function(a){a.addEventListener('click',function(){csTurn(+a.getAttribute('data-dir'))})});
+/* телефон и планшет: кейс листается целиком — пальцем влево и вправо по всему слайду */
+var csSlide=$('#cs-slide'), csDrag=null, csNarrow=window.matchMedia?window.matchMedia('(max-width:1099px)'):{matches:false};
+function csRest(ms){csSlide.style.transition=ms?'transform '+ms+'ms cubic-bezier(.2,.7,.1,1),opacity '+ms+'ms':'none';csSlide.style.transform='';csSlide.style.opacity=''}
+function csTurn(dir){
+  var n=(csN+dir+csBtns.length)%csBtns.length;
+  if(reduce||!csNarrow.matches){csRest(0);csBtns[n].click();return}
+  csSlide.style.transition='transform .16s ease-in,opacity .16s ease-in';
+  csSlide.style.transform='translateX('+(-dir*34)+'%)';
+  csSlide.style.opacity='0';
+  setTimeout(function(){
+    csBtns[n].click();
+    csSlide.style.transition='none';
+    csSlide.style.transform='translateX('+(dir*34)+'%)';
+    void csSlide.offsetWidth;
+    csRest(340);
+  },160);
+}
+csSlide.addEventListener('pointerdown',function(e){
+  if(e.pointerType==='mouse'||!csNarrow.matches||e.target.closest('.cs-track,button'))return;
+  csDrag={id:e.pointerId,x:e.clientX,y:e.clientY,dx:0,on:false};
+});
+csSlide.addEventListener('pointermove',function(e){
+  if(!csDrag||e.pointerId!==csDrag.id)return;
+  var dx=e.clientX-csDrag.x,dy=e.clientY-csDrag.y;
+  if(!csDrag.on){
+    if(Math.abs(dx)<10||Math.abs(dx)<Math.abs(dy)*1.2)return;
+    csDrag.on=true;csTouched=true;csHide();csSlide.style.transition='none';
+  }
+  csDrag.dx=dx;
+  csSlide.style.transform='translateX('+dx.toFixed(1)+'px)';
+  csSlide.style.opacity=Math.max(.35,1-Math.abs(dx)/420).toFixed(2);
+});
+function csDrop(e){
+  if(!csDrag||e.pointerId!==csDrag.id)return;
+  var d=csDrag;csDrag=null;
+  if(!d.on)return;
+  if(e.type==='pointerup'&&Math.abs(d.dx)>52)csTurn(d.dx<0?1:-1);else csRest(240);
+}
+csSlide.addEventListener('pointerup',csDrop);
+csSlide.addEventListener('pointercancel',csDrop);
 /* первый показ: блок входит в окно — ползунок сам проходит от «до» к третьему месяцу */
 function csTick(){
   if(csPlayed)return;
@@ -1747,6 +1806,19 @@ function csWake(){
 document.addEventListener('visibilitychange',csWake);
 window.addEventListener('pointermove',csWake,{passive:true});
 window.addEventListener('touchstart',csWake,{passive:true});
+
+/* команда: на телефоне это лента из пяти карточек; точки показывают, какая сейчас на экране */
+var tmRail=$('#tm-rail'), tmDots=$('#tm-dots'), tmCards=$$('.tm-p',tmRail), tmCur=-1, tmBusy=false;
+tmCards.forEach(function(){tmDots.appendChild(document.createElement('i'))});
+function tmMark(){
+  tmBusy=false;
+  var x=tmRail.scrollLeft,x0=tmCards[0].offsetLeft,best=0,gap=1e9;
+  tmCards.forEach(function(c,i){var d=Math.abs(c.offsetLeft-x0-x);if(d<gap){gap=d;best=i}});
+  if(x>4&&x+tmRail.clientWidth>=tmRail.scrollWidth-4)best=tmCards.length-1;
+  if(best!==tmCur){if(tmCur>=0)tmDots.children[tmCur].classList.remove('on');tmDots.children[best].classList.add('on');tmCur=best}
+}
+tmRail.addEventListener('scroll',function(){if(!tmBusy){tmBusy=true;requestAnimationFrame(tmMark)}},{passive:true});
+tmMark();
 
 /* слой «Макет» */
 var mkB=$('#mk-b'), mkP=$('#mk-p'), mkS=$('#mk-s');
