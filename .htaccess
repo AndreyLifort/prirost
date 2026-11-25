@@ -1,0 +1,7 @@
+Options -MultiViews
+DirectoryIndex index.html
+RewriteEngine On
+RewriteRule ^(privacy|consent|consent-ads)/$ /$1 [R=301,L]
+RewriteRule ^(privacy|consent|consent-ads)$ $1.html [L]
+RewriteRule ^personal-data/?$ /privacy [R=301,L]
+RewriteRule ^docs\.html$ /privacy [R=301,L]
